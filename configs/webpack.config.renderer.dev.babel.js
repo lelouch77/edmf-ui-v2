@@ -93,6 +93,7 @@ export default merge.smart(baseConfig, {
           },
         ],
       },
+      
       // SASS support - compile all .global.scss files and pipe it to style.css
       {
         test: /\.global\.(scss|sass)$/,
@@ -132,6 +133,20 @@ export default merge.smart(baseConfig, {
             loader: 'sass-loader',
           },
         ],
+      },
+      {
+        test: /\.global\.css$/,
+        exclude: /node_modules/,
+        use: {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+              ],
+            },
+        },
       },
       // WOFF Font
       {

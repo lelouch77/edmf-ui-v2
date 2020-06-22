@@ -116,6 +116,20 @@ export default merge.smart(baseConfig, {
           },
         ],
       },
+      {
+        test: /\.global\.css$/,
+        exclude: /node_modules/,
+        use: {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('tailwindcss'),
+                require('autoprefixer'),
+              ],
+            },
+        },
+      },
       // WOFF Font
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
