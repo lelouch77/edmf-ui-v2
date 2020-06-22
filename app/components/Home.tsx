@@ -6,24 +6,24 @@ import styles from './Home.css';
 
 export default function Home(): JSX.Element {
   return (
-    <div className={styles.container} data-tid="container">
-      <h2>Home</h2>
-      <DateRangePicker />
-      <br />
-      <Link to={routes.COUNTER}>to Counter</Link>
-      <Link to={routes.CAMPAIGNS}>to Campaign</Link>
-          <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      <div className="sm:flex sm:items-center px-6 py-4">
-        <img className="block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 sm:h-24 rounded-full" src="https://randomuser.me/api/portraits/women/17.jpg" alt="Woman's Face" />
-        <div className="mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left">
-          <p className="text-xl leading-tight">Erin Lindford</p>
-          <p className="text-sm leading-tight text-gray-600">Customer Support Specialist</p>
-          <div className="mt-4">
-            <button className="text-purple-500 hover:text-white hover:bg-purple-500 border border-purple-500 text-xs font-semibold rounded-full px-4 py-1 leading-normal">Message</button>
+      <div class="w-full">
+        <header className="bg-white shadow">
+          <div className="h-16 mx-auto py-3 px-4 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold leading-tight text-gray-900">
+              Followers
+            </h1>
           </div>
-        </div>
+        </header>
+        <main>
+          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <div className="mb-4">
+                <span className="text-sm leading-5 text-gray-500">Sync Status</span>
+                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                        In Progress
+                </span>
+            </div>
+          </div>
+        </main>
       </div>
-    </div>
-    </div>
   );
 }

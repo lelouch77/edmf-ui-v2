@@ -14,12 +14,21 @@ export default function Campaign() {
   },[])
 
   return (
-    <div>
-      <div data-tid="backButton">
-        <Link to={routes.HOME}>
-          <i className="fa fa-arrow-left fa-3x" />
-        </Link>
+      <div class="w-full">
+      <header className="bg-white shadow">
+        <div className="h-16 mx-auto py-3 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold leading-tight text-gray-900">
+            Campaigns
+          </h1>
+        </div>
+      </header>
+       <main>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="h-100">
+
+          </div>
+        </div>
+       </main>
       </div>
-    </div>
   );
 }
