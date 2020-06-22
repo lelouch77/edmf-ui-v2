@@ -11,6 +11,7 @@ export default function Home(): JSX.Element {
       <DatePicker />
       <br />
       <Link to={routes.COUNTER}>to Counter</Link>
+      <Link to={routes.CAMPAIGNS}>to Campaign</Link>
     </div>
   );
 }
