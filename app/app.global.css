@@ -2,14 +2,16 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-/* @import '~@fortawesome/fontawesome-free/css/all.css'; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
 @import '~@blueprintjs/core/lib/css/blueprint.css';
 @import '~@blueprintjs/datetime/lib/css/blueprint-datetime.css';
 
 body {
   position: relative;
-  /* color: white; */
   height: 100vh;
   background-color: #232c39;
   background-image: linear-gradient(
