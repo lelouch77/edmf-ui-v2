@@ -25,14 +25,14 @@ export default function Settings() {
                 <div class="flex flex-wrap -mx-3 mb-6">
                    <h5 class="leading-tight text-xl font-bold px-3 pb-5">Consumer API Keys</h5>
                     <div class="w-full px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                         API Key
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder=""/>
                         
                     </div>
                     <div class="w-full px-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
                         API Secret
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""/>
@@ -41,14 +41,14 @@ export default function Settings() {
                 <div class="flex flex-wrap -mx-3 mb-6">
                    <h5 class="leading-tight text-xl font-bold px-3 pb-5">Access token & access token secret</h5>
                     <div class="w-full px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                         Access token
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder=""/>
                         
                     </div>
                     <div class="w-full px-3">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
                         Access token secret
                         </label>
                         <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""/>

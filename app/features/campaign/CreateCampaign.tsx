@@ -30,14 +30,14 @@ export default function CreateCampaign() {
             <form class="w-full max-w-lg">
                 <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                     Name
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder="Eg. New book Promotion"/>
                     
                 </div>
                 <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
                     Description
                     </label>
                     <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Campaign Description"/>
@@ -45,7 +45,7 @@ export default function CreateCampaign() {
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="message">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="message">
                     Message
                     </label>
                     <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="password" placeholder="This is the DM that I want to send my followers"/>
@@ -53,7 +53,7 @@ export default function CreateCampaign() {
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
                 <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="recipients">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
                     Recipients
                     </label>
                     <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
