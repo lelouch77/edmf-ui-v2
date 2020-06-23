@@ -25,7 +25,7 @@ export default (props: Props) => {
     {
       label: 'Segments',
       icon: UserIcon,
-      route: routes.CAMPAIGNS
+      route: routes.SEGMENTS
     },
     {
       label: 'Followers',
