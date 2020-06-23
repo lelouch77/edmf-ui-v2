@@ -28,6 +28,11 @@ export default (props: Props) => {
       route: routes.CAMPAIGNS
     },
     {
+      label: 'Followers',
+      icon: UserIcon,
+      route: routes.FOLLOWERS
+    },
+    {
       label: 'Settings',
       icon: SettingsIcon,
       route: routes.SETTINGS
