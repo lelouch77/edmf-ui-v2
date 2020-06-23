@@ -6,6 +6,7 @@ import App from './containers/App';
 import CampaignsPage from './containers/CampaignsPage';
 import CreateCampaignPage from './containers/CreateCampaignPage';
 import SettingsPage from './containers/SettingsPage';
+import FollowersPage from './containers/FollowersPage'
 
 
 // const LazyCampaignsPage = React.lazy(() =>
@@ -25,6 +26,7 @@ export default function Routes() {
         <Route path={routes.HOME} component={CampaignsPage} exact={true} />
         <Route path={routes.CAMPAIGNS} component={CampaignsPage} />
         <Route path={routes.CREATECAMPAIGN} component={CreateCampaignPage} />
+        <Route path={routes.FOLLOWERS} component={FollowersPage} />
         <Route path={routes.SETTINGS} component={SettingsPage} />
       </Switch>
     </App>
