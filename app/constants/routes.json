@@ -1,6 +1,5 @@
 {
   "HOME": "/",
-  "COUNTER": "/counter",
   "CAMPAIGNS":"/campaigns",
   "CREATECAMPAIGN":"/createCampaign",
   "SETTINGS":"/settings"
