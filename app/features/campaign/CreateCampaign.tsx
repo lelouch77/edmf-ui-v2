@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json';
+import Header from '../../containers/Header';
 import { FormGroup,InputGroup  } from '@blueprintjs/datetime';
 
 export default function CreateCampaign() {
@@ -9,16 +10,11 @@ export default function CreateCampaign() {
 
   return (
       <div class="w-full">
-      <header className="bg-white shadow">
-        <div className="h-16 mx-auto py-3 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold leading-tight text-gray-900">
-            Campaigns
-          </h1>
-        </div>
-      </header>
+       <Header name="Campaigns"/>
        <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div className="h-100">
+          <div>
+            <p className="text-gray-500">Create Campaign <b>></b> Untitled </p>
             <div class="flex flex-row-reverse mb-2">
               <button class="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
                 Save
