@@ -14,5 +14,8 @@
     "postinstall": "yarn electron-rebuild"
   },
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "ag-grid-community": "^23.2.1",
+    "ag-grid-react": "^23.2.1"
+  }
 }

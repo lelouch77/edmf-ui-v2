@@ -22,10 +22,10 @@ export default function Routes() {
   return (
     <App>
       <Switch>
+        <Route path={routes.HOME} component={CampaignsPage} exact={true} />
         <Route path={routes.CAMPAIGNS} component={CampaignsPage} />
         <Route path={routes.CREATECAMPAIGN} component={CreateCampaignPage} />
         <Route path={routes.SETTINGS} component={SettingsPage} />
-        <Route path={routes.HOME} component={CampaignsPage} />
       </Switch>
     </App>
   );
