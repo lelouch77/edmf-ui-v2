@@ -2,6 +2,7 @@
   "HOME": "/",
   "CAMPAIGNS":"/campaigns",
   "CREATECAMPAIGN":"/createCampaign",
+  "SEGMENTS":"/segments",
   "SETTINGS":"/settings",
   "FOLLOWERS": "/followers"
 }
