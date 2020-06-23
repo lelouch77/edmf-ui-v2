@@ -1,6 +1,6 @@
 {
   "HOME": "/",
-  "CAMPAIGNS":"/campaigns",
-  "CREATECAMPAIGN":"/createCampaign",
-  "SETTINGS":"/settings"
+  "CAMPAIGNS": "/campaigns",
+  "CREATECAMPAIGN": "/createCampaign",
+  "SETTINGS": "/settings"
 }
