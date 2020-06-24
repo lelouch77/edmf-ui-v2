@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json';
 import Header from '../../containers/Header';
 import { fetchCampaigns,selectCampaigns } from './campaignSlice'
+import NoCampaignFound from './NoCampaign'
 
 export default function Campaign() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export default function Campaign() {
               </button>
             </Link>
             </div>
+            <NoCampaignFound/>
             <table aria-describedby="info-popup" aria-label="open tickets" class=" w-full min-h-0 h-full flex flex-col">
                 <thead class="border-t border-b flex w-full flex-col px-4">
                   <tr class="flex">
