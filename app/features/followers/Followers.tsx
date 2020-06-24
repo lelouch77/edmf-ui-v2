@@ -1,7 +1,7 @@
 import React from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import Header from '../../containers/Header';
-import NameRenderer from '../../containers/NameRenderer';
+import NameRenderer from '../../components/renderers/NameRenderer';
 
 const columnDefs = [
 	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer' },
