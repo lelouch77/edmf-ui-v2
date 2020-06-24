@@ -43,6 +43,7 @@ export default (props: Props) => {
     <nav aria-label="side bar" aria-orientation="vertical" className="flex-none flex flex-col items-center text-center bg-indigo-700 text-gray-400 border-r min-h-screen">
       <div className="h-16 flex items-center w-full"></div>
         <ul>
+ 
           { navOptions.map(nav => {
               const { label, icon: Icon, route } = nav;
               const isActive = !!(activeState == route)

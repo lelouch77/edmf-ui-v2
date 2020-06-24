@@ -1,16 +1,20 @@
 import React from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import Header from '../../containers/Header';
+import NameRenderer from '../../containers/NameRenderer';
 
 const columnDefs = [
-	{ headerName: "Name", field: "name" },
+	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer' },
 	{ headerName: "Screen Name", field: "screenName" },
 	{ headerName: "Followers Count", field: "followersCount" },
 	{ headerName: "Friends Count", field: "friendsCount" },
 	{ headerName: "Verified", field: "verified" }
 ]
 
-const defaultColDef = { suppressSizeToFit: false, sortable: true }
+const defaultColDef = {  sortable: true }
+const frameworkComponents ={
+	nameRenderer:NameRenderer
+}
 
 const Followers = ({ followers }: any) => {
 	return (
@@ -22,6 +26,7 @@ const Followers = ({ followers }: any) => {
 						columnDefs={columnDefs}
 						rowData={followers}
 						defaultColDef={defaultColDef}
+						frameworkComponents={frameworkComponents}
 					>
 					</AgGridReact>
 				</div>
