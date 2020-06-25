@@ -120,42 +120,53 @@ app.on('activate', () => {
 });
 
 const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
+// EasyDMCore.publicMethods.forEach((functionName: string) => {
+//   exports[functionName] = (...args: Array<any>) => new Promise((resolve) => {
+//     easyDMCore[functionName](...args).then((res: any) => resolve(res))
+//   })
+// })
+// exports.TwitterAdapterApi = (functionName: string, params: Array<any>) => {
+//   return new Promise((resolve: any) => {
+//     easyDMCore.TwitterAdapter[functionName](...params)
+//       .then((res: any) => resolve(res))
+//   })
+// }
 
-exports.TwitterAdapterApi = (functionName: string, params: Array<any>) => {
+// exports.setkeys = (
+//   consumerKey: string,
+//   consumerSecret: string,
+//   acccessTokenKey: string, 
+//   accessTokenSecret: string
+// ) => {
+//   return new Promise((resolve: any) => {
+//     resolve(
+      // easyDMCore.TwitterAdapter.setTwitterKeys({
+      //   consumer_key: consumerKey,
+      //   consumer_secret: consumerSecret,
+      //   access_token_key: acccessTokenKey,
+      //   access_token_secret: accessTokenSecret
+      // })
+//     )
+//   })
+// }
+
+exports.getUserObject = () => {
   return new Promise((resolve: any) => {
-    easyDMCore.TwitterAdapter[functionName](...params)
+    easyDMCore.getUserObject()
       .then((res: any) => resolve(res))
   })
 }
 
-exports.setkeys = (
-  consumerKey: string,
-  consumerSecret: string,
-  acccessTokenKey: string, 
-  accessTokenSecret: string
-) => {
+exports.setkeys = (...args: any) => {
   return new Promise((resolve: any) => {
-    resolve(
-      easyDMCore.TwitterAdapter.setTwitterKeys({
-        consumer_key: consumerKey,
-        consumer_secret: consumerSecret,
-        access_token_key: acccessTokenKey,
-        access_token_secret: accessTokenSecret
-      })
-    )
-  })
-}
-
-exports.getKeys = () => {
-  return new Promise((resolve: any) => {
-    easyDMCore.TwitterAdapter.getTwitterKeys()
+    easyDMCore.setkeys(...args)
       .then((res: any) => resolve(res))
   })
 }
 
-exports.getUsers = () => {
-  return new Promise((resolve: any) => {
-    easyDMCore.getUsersPaginated({})
-      .then((res: any) => resolve(res))
-  })
-}
+// exports.getUsers = () => {
+//   return new Promise((resolve: any) => {
+//     easyDMCore.getUsersPaginated({})
+//       .then((res: any) => resolve(res))
+//   })
+// }
