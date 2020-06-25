@@ -9,7 +9,7 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
@@ -119,7 +119,6 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
-const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
 // EasyDMCore.publicMethods.forEach((functionName: string) => {
 //   exports[functionName] = (...args: Array<any>) => new Promise((resolve) => {
 //     easyDMCore[functionName](...args).then((res: any) => resolve(res))
@@ -150,19 +149,35 @@ const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
 //   })
 // }
 
-exports.getUserObject = () => {
-  return new Promise((resolve: any) => {
-    easyDMCore.getUserObject()
-      .then((res: any) => resolve(res))
-  })
-}
+// exports.getUserObject = () => {
+//   return new Promise((resolve: any) => {
+//     easyDMCore.getUserObject()
+//       .then((res: any) => resolve(res))
+//   })
+// }
 
-exports.setkeys = (...args: any) => {
-  return new Promise((resolve: any) => {
-    easyDMCore.setkeys(...args)
-      .then((res: any) => resolve(res))
-  })
-}
+// exports.setkeys = (...args: any) => {
+//   return new Promise((resolve: any) => {
+//     easyDMCore.setkeys(...args)
+//       .then((res: any) => resolve(res))
+//   })
+// }
+
+// const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
+// easyDMCore.getUserObject().then(value => console.log('========', value))
+
+const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
+
+ipcMain.on('user:getKeys', () => {
+  easyDMCore.getUserObject()
+    .then(res => {
+      console.log(res);
+      (mainWindow as any).webContents.send('user:getKeys', res);
+    })
+    .catch(err => {
+      (mainWindow as any).webContents.send('user:getKeys', err);
+    })
+})
 
 // exports.getUsers = () => {
 //   return new Promise((resolve: any) => {

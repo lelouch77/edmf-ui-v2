@@ -3,8 +3,7 @@ import Campaign from '../features/campaign/Campaign';
 // import { Dialog } from "@blueprintjs/core";
 import APIKeys from '../features/APIKeys'
 
-const electron = require('electron');
-const mainProcess = electron.remote.require('./main.dev');
+const { ipcRenderer } = require('electron');
 // mainProcess.getKeys().then((res: any) => {
 //   console.log('from API:    ',res)
 // })
@@ -16,24 +15,28 @@ const mainProcess = electron.remote.require('./main.dev');
 
 export default function CampaignsPage() {
   const [showModal, setShowModal] = useState(true)
+  const [data, setData] = useState('')
     // mainProcess.getUserObject().then((userObject: any) => {
     //   if(!userObject) setShowModal(true)
     // })
     useEffect(() => {
-      console.log('get user object ------------')
-      mainProcess.getUserObject().then((userObject: any) => {
-        console.log('inside ---------------')
-        alert(userObject)
+      console.log('Inside Use Effect......', ipcRenderer)
+      ipcRenderer.send('user:getKeys')
+      ipcRenderer.on('user:getKeys', (...args) => {
+        console.log('received......')
+        console.log(args)
+        setData(JSON.stringify(data))
       })
-      mainProcess.setKeys({
-        consumer_key: 'd9NU6wtENpB7il52fi1B1QmEY',
-        consumer_secret: 'DOEbDkSMKapZSy9VaY5f11dtMiASxaIAKurSRG4eaj2V4VK5ve',
-        access_token_key: '3075255631-HhDNzE0SioFxb8dy0kapEvs8rhFMUp4I0ARgDf8',
-        access_token_secret: '4p19sW9uzJo04xu32QdWXZMwG2WGMJZavv37qzcqPtMvs'
-      }).then((res: any) => alert(JSON.stringify(res)))
+    //   mainProcess.setKeys({
+    //     consumer_key: 'd9NU6wtENpB7il52fi1B1QmEY',
+    //     consumer_secret: 'DOEbDkSMKapZSy9VaY5f11dtMiASxaIAKurSRG4eaj2V4VK5ve',
+    //     access_token_key: '3075255631-HhDNzE0SioFxb8dy0kapEvs8rhFMUp4I0ARgDf8',
+    //     access_token_secret: '4p19sW9uzJo04xu32QdWXZMwG2WGMJZavv37qzcqPtMvs'
+    //   }).then((res: any) => alert(JSON.stringify(res)))
     },[])
   return (
     <>
+    { data }
       {/* { showModal &&
         <Dialog
           className={``}
