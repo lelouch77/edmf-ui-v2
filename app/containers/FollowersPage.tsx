@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import Followers from '../features/followers/Followers'
+const electron = require('electron');
+const mainProcess = electron.remote.require('./main.dev.ts');
 
 const FollowersPage = () => {
 	const [followers, setFollowers] = useState([] as any)
 
 	useEffect(() => {
-		setTimeout(() => {
-			let followers = [];
-			for(let i=0;i<100;i++){
-				followers.push({
-					name: 'John Doe 1',
-					screenName: 'john_doe_ofl_',
-					followersCount: 15000,
-					friendsCount: 500,
-					verified: true
-				})
-			};
-			setFollowers(followers)
-		}, 0)
+		mainProcess.getUsers().then((users: any) => {
+			setFollowers(users.map((user: any) => {
+				const { 
+					name,
+					screen_name: screenName,
+					followers_count: followersCount,
+					friends_count: friendsCount,
+					verified
+				} = user
+				return { name, screenName, followersCount, friendsCount, verified }
+			}))
+		})
 	}, [])
 	
 	return <Followers followers={followers} />;

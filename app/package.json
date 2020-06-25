@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "ag-grid-community": "^23.2.1",
-    "ag-grid-react": "^23.2.1"
+    "ag-grid-react": "^23.2.1",
+    "edmf-core": "^1.1.4"
   }
 }
