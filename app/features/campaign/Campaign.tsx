@@ -15,6 +15,8 @@ export default function Campaign() {
     dispatch(fetchCampaigns())
   },[])
 
+  console.log(campaigns);
+
   return (
       <div class="w-full">
         <Header name="Campaigns"/>
