@@ -13,6 +13,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import EasyDMCore from 'edmf-core';
 
 export default class AppUpdater {
   constructor() {
@@ -117,3 +118,44 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
+
+const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
+
+exports.TwitterAdapterApi = (functionName: string, params: Array<any>) => {
+  return new Promise((resolve: any) => {
+    easyDMCore.TwitterAdapter[functionName](...params)
+      .then((res: any) => resolve(res))
+  })
+}
+
+exports.setkeys = (
+  consumerKey: string,
+  consumerSecret: string,
+  acccessTokenKey: string, 
+  accessTokenSecret: string
+) => {
+  return new Promise((resolve: any) => {
+    resolve(
+      easyDMCore.TwitterAdapter.setTwitterKeys({
+        consumer_key: consumerKey,
+        consumer_secret: consumerSecret,
+        access_token_key: acccessTokenKey,
+        access_token_secret: accessTokenSecret
+      })
+    )
+  })
+}
+
+exports.getKeys = () => {
+  return new Promise((resolve: any) => {
+    easyDMCore.TwitterAdapter.getTwitterKeys()
+      .then((res: any) => resolve(res))
+  })
+}
+
+exports.getUsers = () => {
+  return new Promise((resolve: any) => {
+    easyDMCore.getUsersPaginated({})
+      .then((res: any) => resolve(res))
+  })
+}
