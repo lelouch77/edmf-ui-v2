@@ -13,3 +13,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+*  ag-grid customizations
+*/
+.ag-cell-focus, .ag-cell {
+    border: none !important;
+}
