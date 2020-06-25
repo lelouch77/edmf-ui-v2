@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 export default function Header({name}: Props) {
     return (
-        <header className="bg-white shadow">
+        <header className="bg-white shadow ">
           <div className="h-16 mx-auto py-3 px-4 sm:px-6 lg:px-8 flex">
             <h1 className="text-3xl font-bold leading-tight text-gray-900 w-11/12">
               {name}

@@ -1,21 +1,30 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json';
 import Header from '../../containers/Header';
 // import { FormGroup,InputGroup  } from '@blueprintjs/datetime';
+import { FormGroup,InputGroup  } from '@blueprintjs/datetime';
+import { ItemRenderer, MultiSelect } from "@blueprintjs/select";
+import SegmentSelect from './SegmentSelect';
 
 export default function CreateCampaign() {
   const dispatch = useDispatch();
-
+  //TODO:Dispatch to get all the segments
+  const [allSegments, setallSegments] = useState([{id:1,name:"Segment 1"},{id:2,name:"Has > 10K Followers"},{id:3,name:"In US"},{id:4,name:"Tweets More"}]);
+  //TODO:Get the selected Segment for edit campaign.But mostly for edit mode this should be on read only mode
+  const [segments, setSegments] = useState([]);
+  const onChange =(segments)=>{
+    setSegments(segments);
+  };
   return (
       <div class="w-full">
        <Header name="Campaigns"/>
        <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div>
+          <div class="flex justify-between">
             <p className="text-gray-500">Create Campaign <b>></b> Untitled </p>
-            <div class="flex flex-row-reverse mb-2">
+            <div class="flex flex-row-reverse">
               <button class="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
                 Save
               </button>
@@ -23,6 +32,19 @@ export default function CreateCampaign() {
                 Send Test
               </button>
             </div>
+          </div>
+          <div class="border-b border-gray-200 mb-4">
+            <nav class="-mb-px flex">
+              <a href="#" class="py-2 px-1 border-b-2 border-indigo-500 font-medium text-sm leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+                Configuration
+              </a>
+              <a href="#" class="ml-8 py-2 px-1 border-b-2 border-transparent font-medium text-sm leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+                Review
+              </a>
+            </nav>
+         </div>
+          <div>
+            <div>
             <form class="w-full max-w-lg">
                 <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3 mb-6 md:mb-0">
@@ -48,18 +70,15 @@ export default function CreateCampaign() {
                 </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
                     Recipients
                     </label>
-                    <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option>Segment 1</option>
-                        <option>Segment 2</option>
-                        <option>Segment 3</option>
-                    </select>
+                    <SegmentSelect allSegments={allSegments} selectedSegments={segments} onChange={onChange}/>
                 </div>
             </div>
             </form>
+            </div>
           </div>
         </div>
         
