@@ -1,6 +1,6 @@
 /* eslint react/jsx-props-no-spreading: off */
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
 import CampaignsPage from './containers/CampaignsPage';
@@ -22,14 +22,16 @@ import SegmentsPage from './containers/SegmentsPage';
 export default function Routes() {
   return (
     <App>
-      <Switch>
-        <Route path={routes.HOME} component={CampaignsPage} exact={true} />
-        <Route path={routes.CAMPAIGNS} component={CampaignsPage} />
-        <Route path={routes.CREATECAMPAIGN} component={CreateCampaignPage} />
-        <Route path={routes.SEGMENTS} component={SegmentsPage} />
-        <Route path={routes.FOLLOWERS} component={FollowersPage} />
-        <Route path={routes.SETTINGS} component={SettingsPage} />
-      </Switch>
+      <Router>
+        <Switch>
+          <Route path={routes.HOME} component={CampaignsPage} exact={true} />
+          <Route path={routes.CAMPAIGNS} component={CampaignsPage} />
+          <Route path={routes.CREATECAMPAIGN} component={CreateCampaignPage} />
+          <Route path={routes.SEGMENTS} component={SegmentsPage} />
+          <Route path={routes.FOLLOWERS} component={FollowersPage} />
+          <Route path={routes.SETTINGS} component={SettingsPage} />
+        </Switch>
+      </Router>
     </App>
   );
 }
