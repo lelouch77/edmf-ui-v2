@@ -5,10 +5,10 @@ import NameRenderer from '../../components/renderers/NameRenderer';
 
 const columnDefs = [
 	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer',
-		valueGetter: function(params) {
-            return {name:params.data.name,image:params.data.profile_image_url_https};
-          }
-	 },
+		valueGetter: (params: any) => {
+			return {name:params.data.name,image:params.data.profile_image_url_https};
+		}
+	},
 	{ headerName: "Screen Name", field: "screen_name" },
 	{ headerName: "Followers Count", field: "followers_count" },
 	{ headerName: "Friends Count", field: "friends_count" },
@@ -17,8 +17,6 @@ const columnDefs = [
 ]
 
 const defaultColDef = {  sortable: true }
-
-
 
 const components = {
 	nameRenderer: NameRenderer

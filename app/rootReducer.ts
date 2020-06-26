@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
-// eslint-disable-next-line import/no-cycle
 import campaignsReducer from './features/campaign/campaignSlice';
+import followersReducer from './features/followers/FollowersSlice'
 
-export default function createRootReducer(history: History) {
+export default function createRootReducer(history: History): any {
   return combineReducers({
     router: connectRouter(history),
-    campaigns: campaignsReducer
+    campaigns: campaignsReducer,
+    followers: followersReducer
   });
 }

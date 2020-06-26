@@ -8,6 +8,15 @@ export interface Campaign {
   status: number
 }
 
+const api = (path: string, params: Array<any> = []) => {
+  ipcRenderer.send(path, ...params)
+   return new Promise((resolve) => {
+      ipcRenderer.once(path, (e, data) => {
+          resolve(data);
+      });
+   });
+}
+
 export interface CampaignResult {
   campaigns: Campaign[]
 }
@@ -22,11 +31,13 @@ export async function getCampaigns(): Promise<CampaignResult>{
     }];
 }
 
-export async function getFollowers(){
-   ipcRenderer.send('user:getFollowers')
-   return new Promise((resolve, reject) => {
-      ipcRenderer.once('user:getFollowers', (e,data) => {
-          resolve(data);
-      });
-   });
-}
+
+const routes = ['getFollowers']
+
+const exportFunctions: any = {}
+
+routes.forEach((functionName: string) => {
+  exportFunctions[functionName] = (...args: Array<any>) => api(functionName, args)
+})
+
+export default exportFunctions;
