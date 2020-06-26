@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron');
+
 export interface Campaign {
   id: number
   name: string
@@ -18,4 +20,13 @@ export async function getCampaigns(): Promise<CampaignResult>{
         weight:100,
         status:10
     }];
+}
+
+export async function getFollowers(){
+   ipcRenderer.send('user:getFollowers')
+   return new Promise((resolve, reject) => {
+      ipcRenderer.once('user:getFollowers', (e,data) => {
+          resolve(data);
+      });
+   });
 }
