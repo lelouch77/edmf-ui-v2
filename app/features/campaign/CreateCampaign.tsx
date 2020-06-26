@@ -7,6 +7,8 @@ import Header from '../../containers/Header';
 import { FormGroup,InputGroup  } from '@blueprintjs/datetime';
 import { ItemRenderer, MultiSelect } from "@blueprintjs/select";
 import SegmentSelect from './SegmentSelect';
+import { TimePicker } from "@blueprintjs/datetime";
+import {  Slider } from "@blueprintjs/core";
 
 export default function CreateCampaign() {
   const dispatch = useDispatch();
@@ -14,6 +16,17 @@ export default function CreateCampaign() {
   const [allSegments, setallSegments] = useState([{id:1,name:"Segment 1"},{id:2,name:"Has > 10K Followers"},{id:3,name:"In US"},{id:4,name:"Tweets More"}]);
   //TODO:Get the selected Segment for edit campaign.But mostly for edit mode this should be on read only mode
   const [segments, setSegments] = useState([]);
+  const [scheduledTime,setScheduledTime] = useState(new Date());
+  const [messagesPerDay,setMessagesPerDay] = useState(100);
+
+  const onTimePickerChange =(selectedTime)=>{
+    setScheduledTime(selectedTime);
+  }
+
+  const messagesPerDayChangeHandler =(messagesPerDay)=>{
+    setMessagesPerDay(messagesPerDay);
+  }
+
   const onChange =(segments)=>{
     setSegments(segments);
   };
@@ -69,19 +82,46 @@ export default function CreateCampaign() {
                     <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="password" placeholder="This is the DM that I want to send my followers"/>
                 </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-2">
-                <div className="w-full px-3">
-                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
-                    Recipients
-                    </label>
-                    <SegmentSelect allSegments={allSegments} selectedSegments={segments} onChange={onChange}/>
-                </div>
-            </div>
+                <div className="flex flex-wrap -mx-3 mb-3">
+                  <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
+                      Recipients
+                      </label>
+                      <SegmentSelect allSegments={allSegments} selectedSegments={segments} onChange={onChange}/>
+                  </div>
+                 </div>
+                  <div className="flex flex-wrap -mx-3 mb-2 mt-8">
+                    <div className="w-full px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
+                        Schedule At
+                        </label>
+                        <TimePicker showArrowButtons={true} useAmPm={true} onChange={onTimePickerChange} defaultValue={scheduledTime}/>
+                    </div>
+                 </div>
+                  <div className="flex flex-wrap -mx-3 mb-2 mt-8">
+                    <div className="w-full px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
+                        Messages Per Day
+                        </label>
+                        <label className="block tracking-wide text-gray-600 text-xs font-base mb-2" htmlFor="recipients">
+                          You can send up to 1,000 messages per day
+                        </label>
+                        <Slider
+                          min={0}
+                          max={1000}
+                          stepSize={10}
+                          labelStepSize={100}
+                          value={messagesPerDay}
+                          vertical={false}
+                          onChange={messagesPerDayChangeHandler}
+                         />
+                    </div>
+                 </div>
+  
             </form>
             </div>
           </div>
         </div>
-        
        </main>
       </div>
   );
