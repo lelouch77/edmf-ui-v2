@@ -200,12 +200,14 @@ ipcMain.on('user:setKeys', (e,keys) => {
 // }
 
 
-ipcMain.on('user:getFollowers', () => {
-  easyDMCore.getFollowers()
+ipcMain.on('user:getFollowers', (e,offset,order) => {
+  console.log("get followers");
+  easyDMCore.getPaginatedFollowers({limit:100, offset,order})
     .then(res => {
       (mainWindow as any).webContents.send('user:getFollowers', res);
     })
     .catch(err => {
+      console.log(err);
       (mainWindow as any).webContents.send('user:getFollowers', err);
     })
 })
