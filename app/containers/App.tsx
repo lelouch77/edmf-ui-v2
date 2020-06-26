@@ -1,16 +1,22 @@
-import React, { ReactNode } from 'react';
+import React, { useEffect } from 'react';
+import { fetchSettings } from '../features/settings/SettingsSlice'
+import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Navbar';
 
-type Props = {
-  children: ReactNode;
-};
-
-export default function App(props: Props) {
-  const { children } = props;
+const App = ({ children }: any) => {
+  const dispatch = useDispatch();
+	const { settings } = useSelector((state: any) => state.settings)
+	
+	useEffect(() => {
+			dispatch(fetchSettings())
+  }, [])
+  
   return (
       <div className="bg-white h-full flex">
         <Navbar/>
-        {children}
+        { Object.keys(settings).length && children }
      </div>
   );
 }
+
+export default App
