@@ -32,7 +32,7 @@ export async function getCampaigns(): Promise<CampaignResult>{
 }
 
 
-const routes = ['getFollowers']
+const routes = ['getFollowers', 'getUserObject']
 
 const exportFunctions: any = {}
 
