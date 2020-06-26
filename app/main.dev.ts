@@ -179,9 +179,47 @@ ipcMain.on('user:getKeys', () => {
     })
 })
 
+
+ipcMain.on('user:setKeys', (e,keys) => {
+  console.log(keys);
+  easyDMCore.setKeys(keys)
+    .then(res => {
+      console.log(res);
+      (mainWindow as any).webContents.send('user:setKeys', res);
+    })
+    .catch(err => {
+      (mainWindow as any).webContents.send('user:setKeys', err);
+    })
+})
+
 // exports.getUsers = () => {
 //   return new Promise((resolve: any) => {
 //     easyDMCore.getUsersPaginated({})
 //       .then((res: any) => resolve(res))
 //   })
 // }
+
+
+ipcMain.on('user:getFollowers', () => {
+  easyDMCore.getFollowers()
+    .then(res => {
+      (mainWindow as any).webContents.send('user:getFollowers', res);
+    })
+    .catch(err => {
+      (mainWindow as any).webContents.send('user:getFollowers', err);
+    })
+})
+
+ipcMain.on('user:syncFollowers', () => {
+  easyDMCore.syncFollowers(true)
+    .then(res => {
+      console.log(res);
+      (mainWindow as any).webContents.send('user:syncFollowers', res);
+    })
+    .catch(err => {
+      (mainWindow as any).webContents.send('user:syncFollowers', err);
+    })
+})
+
+
+

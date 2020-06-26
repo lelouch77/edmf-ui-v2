@@ -4,16 +4,24 @@ import Header from '../../containers/Header';
 import NameRenderer from '../../components/renderers/NameRenderer';
 
 const columnDefs = [
-	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer' },
-	{ headerName: "Screen Name", field: "screenName" },
-	{ headerName: "Followers Count", field: "followersCount" },
-	{ headerName: "Friends Count", field: "friendsCount" },
+	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer',
+		valueGetter: function(params) {
+            return {name:params.data.name,image:params.data.profile_image_url_https};
+          }
+	 },
+	{ headerName: "Screen Name", field: "screen_name" },
+	{ headerName: "Followers Count", field: "followers_count" },
+	{ headerName: "Friends Count", field: "friends_count" },
+	{ headerName: "Location", field: "location" },
 	{ headerName: "Verified", field: "verified" }
 ]
 
 const defaultColDef = {  sortable: true }
-const frameworkComponents ={
-	nameRenderer:NameRenderer
+
+
+
+const components = {
+	nameRenderer: NameRenderer
 }
 
 const Followers = ({ followers }: any) => {
@@ -26,7 +34,7 @@ const Followers = ({ followers }: any) => {
 						columnDefs={columnDefs}
 						rowData={followers}
 						defaultColDef={defaultColDef}
-						frameworkComponents={frameworkComponents}
+						components ={components}
 					>
 					</AgGridReact>
 				</div>
