@@ -4,7 +4,7 @@ import Header from '../../containers/Header';
 import NameRenderer from '../../components/renderers/NameRenderer';
 import VerifiedRenderer from '../../components/renderers/VerifiedRenderer';
 import { InfiniteRowModelModule } from 'ag-grid-community';
-import { getFollowers } from '../../api/easyDMAPI'
+import API from '../../api/easyDMAPI'
 
 const columnDefs = [
 	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer',
@@ -44,7 +44,7 @@ const paginationConfig = {
 				let sortParams = params.sortModel.length >0  ? [params.sortModel.map((sortBy)=>{
 					return [sortBy.colId,sortBy.sort.toUpperCase()]
 				})]:undefined;
-				getFollowers(params.startRow,sortParams).then((users)=>{
+				API.getPaginatedFollowers({offset:params.startRow,limit:100,order:sortParams}).then((users)=>{
 					params.successCallback(users, -1);
 				});
 			}
