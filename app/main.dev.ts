@@ -168,29 +168,29 @@ app.on('activate', () => {
 
 const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
 
-ipcMain.on('user:getKeys', () => {
-  easyDMCore.getUserObject()
-    .then(res => {
-      console.log(res);
-      (mainWindow as any).webContents.send('user:getKeys', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:getKeys', err);
-    })
-})
+// ipcMain.on('user:getKeys', () => {
+//   easyDMCore.getUserObject()
+//     .then(res => {
+//       console.log(res);
+//       (mainWindow as any).webContents.send('user:getKeys', res);
+//     })
+//     .catch(err => {
+//       (mainWindow as any).webContents.send('user:getKeys', err);
+//     })
+// })
 
 
-ipcMain.on('user:setKeys', (e,keys) => {
-  console.log(keys);
-  easyDMCore.setKeys(keys)
-    .then(res => {
-      console.log(res);
-      (mainWindow as any).webContents.send('user:setKeys', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:setKeys', err);
-    })
-})
+// ipcMain.on('user:setKeys', (e,keys) => {
+//   console.log(keys);
+//   easyDMCore.setKeys(keys)
+//     .then(res => {
+//       console.log(res);
+//       (mainWindow as any).webContents.send('user:setKeys', res);
+//     })
+//     .catch(err => {
+//       (mainWindow as any).webContents.send('user:setKeys', err);
+//     })
+// })
 
 // exports.getUsers = () => {
 //   return new Promise((resolve: any) => {
@@ -200,28 +200,44 @@ ipcMain.on('user:setKeys', (e,keys) => {
 // }
 
 
-ipcMain.on('user:getFollowers', (e,offset,order) => {
-  console.log("get followers");
-  easyDMCore.getPaginatedFollowers({limit:100, offset,order})
-    .then(res => {
-      (mainWindow as any).webContents.send('user:getFollowers', res);
-    })
-    .catch(err => {
-      console.log(err);
-      (mainWindow as any).webContents.send('user:getFollowers', err);
-    })
-})
+const eventListenerGenerator = (path: string) => {
+  ipcMain.on(path, (event: any, ...args: any[]) => {
+    console.log("Arguments",path,args);
+    easyDMCore[path](...args)
+      .then(res => {
+        console.log(res);
+        (mainWindow as any).webContents.send(path, res);
+      })
+      .catch(err => {
+        (mainWindow as any).webContents.send(path, err);
+      })
+  })
+}
 
-ipcMain.on('user:syncFollowers', () => {
-  easyDMCore.syncFollowers(true)
-    .then(res => {
-      console.log(res);
-      (mainWindow as any).webContents.send('user:syncFollowers', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:syncFollowers', err);
-    })
-})
+EasyDMCore.publicMethods.forEach(path => {
+  eventListenerGenerator(path)
+});
+
+// ipcMain.on('getFollowers', () => {
+//   easyDMCore.getFollowers()
+//     .then(res => {
+//       (mainWindow as any).webContents.send('getFollowers', res);
+//     })
+//     .catch(err => {
+//       (mainWindow as any).webContents.send('getFollowers', err);
+//     })
+// })
+
+// ipcMain.on('user:syncFollowers', () => {
+//   easyDMCore.syncFollowers(true)
+//     .then(res => {
+//       console.log(res);
+//       (mainWindow as any).webContents.send('user:syncFollowers', res);
+//     })
+//     .catch(err => {
+//       (mainWindow as any).webContents.send('user:syncFollowers', err);
+//     })
+// })
 
 
 
