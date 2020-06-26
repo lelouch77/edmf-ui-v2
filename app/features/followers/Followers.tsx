@@ -7,11 +7,16 @@ import { InfiniteRowModelModule } from 'ag-grid-community';
 import API from '../../api/easyDMAPI'
 
 const columnDefs = [
-	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer',
-		valueGetter: function(params) {
-            return params.data && {name:params.data.name,image:params.data.profile_image_url_https};
-          },
-		  flex:2},
+	{ 
+		headerName: "Name", field: "name",cellRenderer: 'nameRenderer',
+		valueGetter: (params: any) => {
+			return params.data && { 
+				name: params.data.name,
+				image: params.data.profile_image_url_https
+			};
+		},
+		flex:2
+	},
 	{ headerName: "Screen Name", field: "screen_name"},
 	{ headerName: "Followers Count", field: "followers_count" },
 	{ headerName: "Friends Count", field: "friends_count" },
