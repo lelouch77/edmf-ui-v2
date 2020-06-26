@@ -6,15 +6,8 @@ import Header from '../../containers/Header';
 import { fetchCampaigns,selectCampaigns } from './campaignSlice'
 import NoCampaignFound from './NoCampaign'
 
-export default function Campaign() {
-  const dispatch = useDispatch();
-  const campaigns = useSelector(selectCampaigns);
- // console.log(campaigns);
-
-  useEffect(() => {
-    dispatch(fetchCampaigns())
-  },[])
-
+export default function Campaign({campaigns}) {
+ 
   console.log(campaigns);
 
   return (
