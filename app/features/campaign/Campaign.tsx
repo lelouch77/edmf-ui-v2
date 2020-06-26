@@ -18,34 +18,34 @@ export default function Campaign() {
   console.log(campaigns);
 
   return (
-      <div class="w-full">
+      <div className="w-full">
         <Header name="Campaigns"/>
         <main>
           <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             <div className="mb-4">
             <Link to={routes.CREATECAMPAIGN}>
-              <button class="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
+              <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
                 Create Campaign
               </button>
             </Link>
             </div>
             <NoCampaignFound/>
-            <table aria-describedby="info-popup" aria-label="open tickets" class=" w-full min-h-0 h-full flex flex-col">
-                <thead class="border-t border-b flex w-full flex-col px-4">
-                  <tr class="flex">
-                    <th class="font-semibold text-left py-3 px-1 w-24 truncate">
+            <table aria-describedby="info-popup" aria-label="open tickets" className=" w-full min-h-0 h-full flex flex-col">
+                <thead className="border-t border-b flex w-full flex-col px-4">
+                  <tr className="flex">
+                    <th className="font-semibold text-left py-3 px-1 w-24 truncate">
                       Name
                     </th>
-                    <th class="font-semibold text-left py-3 px-1 w-full max-w-xs xl:max-w-lg truncate">
+                    <th className="font-semibold text-left py-3 px-1 w-full max-w-xs xl:max-w-lg truncate">
                       Description
                     </th>
-                    <th class="font-semibold text-left py-3 px-1 flex-1 truncate">
+                    <th className="font-semibold text-left py-3 px-1 flex-1 truncate">
                       Weight
                     </th>
-                    <th class="font-semibold text-left py-3 px-1 flex-1 truncate">
+                    <th className="font-semibold text-left py-3 px-1 flex-1 truncate">
                       Status
                     </th>
-                    <th class="font-semibold text-left py-3 px-1 flex-1 truncate">
+                    <th className="font-semibold text-left py-3 px-1 flex-1 truncate">
                       Created Date
                     </th>
                   </tr>

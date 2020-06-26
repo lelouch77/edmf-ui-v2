@@ -18,60 +18,60 @@ export default function CreateCampaign() {
     setSegments(segments);
   };
   return (
-      <div class="w-full">
+      <div className="w-full">
        <Header name="Campaigns"/>
        <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-          <div class="flex justify-between">
+          <div className="flex justify-between">
             <p className="text-gray-500">Create Campaign <b>></b> Untitled </p>
-            <div class="flex flex-row-reverse">
-              <button class="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
+            <div className="flex flex-row-reverse">
+              <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
                 Save
               </button>
-              <button class="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-3">
+              <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-3">
                 Send Test
               </button>
             </div>
           </div>
-          <div class="border-b border-gray-200 mb-4">
-            <nav class="-mb-px flex">
-              <a href="#" class="py-2 px-1 border-b-2 border-indigo-500 font-medium text-sm leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+          <div className="border-b border-gray-200 mb-4">
+            <nav className="-mb-px flex">
+              <a href="#" className="py-2 px-1 border-b-2 border-indigo-500 font-medium text-sm leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
                 Configuration
               </a>
-              <a href="#" class="ml-8 py-2 px-1 border-b-2 border-transparent font-medium text-sm leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
+              <a href="#" className="ml-8 py-2 px-1 border-b-2 border-transparent font-medium text-sm leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300">
                 Review
               </a>
             </nav>
          </div>
           <div>
             <div>
-            <form class="w-full max-w-lg">
-                <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
+            <form className="w-full max-w-lg">
+                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3 mb-6 md:mb-0">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                     Name
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder="Eg. New book Promotion"/>
+                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder="Eg. New book Promotion"/>
                     
                 </div>
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
                     Description
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Campaign Description"/>
+                    <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Campaign Description"/>
                 </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="message">
+                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="message">
                     Message
                     </label>
-                    <textarea class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="password" placeholder="This is the DM that I want to send my followers"/>
+                    <textarea className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"  type="password" placeholder="This is the DM that I want to send my followers"/>
                 </div>
                 </div>
-                <div class="flex flex-wrap -mx-3 mb-2">
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
+                <div className="flex flex-wrap -mx-3 mb-2">
+                <div className="w-full px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="recipients">
                     Recipients
                     </label>
                     <SegmentSelect allSegments={allSegments} selectedSegments={segments} onChange={onChange}/>
