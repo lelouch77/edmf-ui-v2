@@ -202,10 +202,8 @@ const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
 
 const eventListenerGenerator = (path: string) => {
   ipcMain.on(path, (event: any, ...args: any[]) => {
-    console.log("Arguments",path,args);
     easyDMCore[path](...args)
       .then(res => {
-        console.log(res);
         (mainWindow as any).webContents.send(path, res);
       })
       .catch(err => {

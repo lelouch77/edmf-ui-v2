@@ -41,7 +41,7 @@ const paginationConfig = {
 		rowCount: null,
 			getRows: function(params) {
 				//console.log('asking for ' + params.startRow + ' to ' + params.endRow);
-				let sortParams = params.sortModel.length >0  ? [params.sortModel.map((sortBy)=>{
+				let sortParams = params.sortModel.length > 0  ? [params.sortModel.map((sortBy)=>{
 					return [sortBy.colId,sortBy.sort.toUpperCase()]
 				})]:undefined;
 				API.getPaginatedFollowers({offset:params.startRow,limit:100,order:sortParams}).then((users)=>{
