@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Followers from '../features/followers/Followers'
-import { getFollowers } from 'api/easyDMAPI'
-// const electron = require('electron');
-// const mainProcess = electron.remote.require('./main.prod.js');
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFollowers } from '../features/followers/FollowersSlice'
 
 const FollowersPage = () => {
-	const [followers, setFollowers] = useState([] as any)
-
+	const dispatch = useDispatch();
+	const { followers } = useSelector((state: any) => state.followers)
+	
 	useEffect(() => {
-		 getFollowers().then((users)=>{
-			 setFollowers(users);
-		 });
-		
-		// mainProcess.getUsers().then((users: any) => {
-		// 	setFollowers(users.map((user: any) => {
-		// 		const { 
-		// 			name,
-		// 			screen_name: screenName,
-		// 			followers_count: followersCount,
-		// 			friends_count: friendsCount,
-		// 			verified
-		// 		} = user
-		// 		return { name, screenName, followersCount, friendsCount, verified }
-		// 	}))
-		// })
+		if(followers.length == 0) {
+			dispatch(fetchFollowers())
+		}
 	}, [])
 	
 	return <Followers followers={followers} />;
