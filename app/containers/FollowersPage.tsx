@@ -1,19 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Followers from '../features/followers/Followers'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFollowers } from '../features/followers/FollowersSlice'
+import { getFollowers } from '../api/easyDMAPI'
 
 const FollowersPage = () => {
-	const dispatch = useDispatch();
-	const { followers } = useSelector((state: any) => state.followers)
-	
-	useEffect(() => {
-		if(followers.length == 0) {
-			dispatch(fetchFollowers())
-		}
-	}, [])
-	
-	return <Followers followers={followers} />;
+	return <Followers />;
 }
  
 export default FollowersPage;
