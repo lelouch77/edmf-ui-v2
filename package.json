@@ -34,7 +34,8 @@
     "test-all": "yarn lint && yarn tsc && yarn build && yarn test",
     "test-e2e": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe electron:./app ./test/e2e/HomePage.e2e.ts",
     "test-e2e-live": "node -r @babel/register ./internals/scripts/CheckBuildsExist.js && cross-env NODE_ENV=test testcafe --live electron:./app ./test/e2e/HomePage.e2e.ts",
-    "test-watch": "yarn test --watch"
+    "test-watch": "yarn test --watch",
+    "package-dev-mac": "yarn cross-env DEBUG_PROD=true yarn package-mac"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -272,12 +273,15 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
-    "@blueprintjs/core": "^3.28.2",
-    "@blueprintjs/datetime": "^3.18.2",
+    "@blueprintjs/core": "^3.29.0",
+    "@blueprintjs/datetime": "^3.18.3",
     "@blueprintjs/select": "^3.13.4",
     "@fortawesome/fontawesome-free": "^5.13.0",
     "@hot-loader/react-dom": "^16.13.0",
     "@reduxjs/toolkit": "^1.3.6",
+    "ag-grid-community": "^23.2.1",
+    "ag-grid-react": "^23.2.1",
+    "antd": "^4.3.5",
     "autoprefixer": "^9.8.2",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.6.5",
@@ -295,11 +299,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "source-map-support": "^0.5.19",
-    "tailwindcss": "^1.4.6",
-    "@blueprintjs/core": "^3.29.0",
-    "@blueprintjs/datetime": "^3.18.3",
-    "ag-grid-community": "^23.2.1",
-    "ag-grid-react": "^23.2.1"
+    "tailwindcss": "^1.4.6"
   },
   "devEngines": {
     "node": ">=7.x",
