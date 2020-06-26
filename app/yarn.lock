@@ -199,10 +199,10 @@ dottie@^2.0.0:
   resolved "https://registry.yarnpkg.com/dottie/-/dottie-2.0.2.tgz#cc91c0726ce3a054ebf11c55fbc92a7f266dd154"
   integrity sha512-fmrwR04lsniq/uSr8yikThDTrM7epXHBAAjH9TbeH3rEA8tdCO7mRzB9hdmdGyJCxF8KERo9CITcm3kGuoyMhg==
 
-edmf-core@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.8.tgz#12a967e6e14f96525fd3cc3df4c009d4f72d575e"
-  integrity sha512-KaZRpMma48bvbj4QG85M2kDGb6TlYum8kTYyhzy92SkYgpw/dSk+ENXNP2PK0/8vMeGyMDi5y5mEMLw1kD4/AQ==
+edmf-core@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.11.tgz#9b41d235462934416bcbce0357bea0902b55bc0a"
+  integrity sha512-9ApPUGsPxSZttXUO6wJs8U5yUluucRAShSC3dFJD7Dw4yPwpouUh3HzOL/xjCDxiGYBUfJN6A/bg/pUd+3zTRQ==
   dependencies:
     "@babel/runtime" "^7.10.3"
     sequelize "^5.21.13"
