@@ -21,10 +21,7 @@ function CampaignsPage() {
   }
 
   function deleteCampaign(id){
-    setLoading(true);
-    API.deleteCampaign(id).then(()=>{
-      setLoading(false);
-    });
+    API.deleteCampaign(id);
   }
 
   return (
