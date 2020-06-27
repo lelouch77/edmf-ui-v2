@@ -12,29 +12,33 @@ import {
   Col,
   Input,
   Tabs,
+  Modal
 } from "antd";
 import moment from "moment";
-import { CheckOutlined } from '@ant-design/icons';
+import { CheckOutlined ,TwitterOutlined} from '@ant-design/icons';
 import FollowersGrid from '../followers/FollowersGrid'
 import CampaignUserGrid from './CampaignUserGrid'
 
 const { Option } = Select;
 const { TextArea } = Input;
 const { TabPane } = Tabs;
+const { info  } = Modal;
 
-export default function CreateCampaign({ campaign, segments, onSubmit }) {
+export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(campaign.name);
   const [description, setDescription] = useState(campaign.description);
   const [message, setMessage] = useState(campaign.message);
   const [recipients, setRecipients] = useState(campaign.segmentIds);
   const [scheduledTime, setScheduledTime] = useState(
-    getMomentFromTimeStamp(campaign.timestamp ? campaign.timestamp : 0)
+    getMomentFromTimeStamp(campaign.scheduled_time ? campaign.scheduled_time : 0)
   );
   const [messagesPerDay, setMessagesPerDay] = useState(
     campaign.allocated_msg_count
   );
   const [activeTabKey, setActiveTabKey] = useState("1");
+  const [isTestDMModalVisible,setTestDMModalVisible ] = useState(false);
+  const [testDMScreenNames,setTestDMScreenNames ] = useState("");
 
   function handleRecipientChange(segmentIds) {
     setRecipients(segmentIds);
@@ -50,6 +54,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit }) {
     let scheduledTimeStamp =
       scheduledTime.hours() * 60 + scheduledTime.minutes();
     onSubmit({
+      id:campaign.id,
       name,
       description,
       message,
@@ -71,8 +76,46 @@ export default function CreateCampaign({ campaign, segments, onSubmit }) {
     setActiveTabKey(activeTabKey);
   }
 
+  //Send DM to test users
+  function sendTestDM() {
+    setTestDMModalVisible(true);
+  }
+
+  function handleOk() {
+     onTestDM({
+      recipient:testDMScreenNames,
+      message
+    });
+     setTestDMModalVisible(false);
+  };
+
+  function handleCancel() {
+    setTestDMModalVisible(false);
+  };
+
   return (
     <div className="w-full">
+        <Modal
+          title={(<><TwitterOutlined style={{ fontSize: "32px" }} /> Send a Test message</>)}
+          visible={isTestDMModalVisible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <div className="w-full mb-6 md:mb-0 mt-2">
+              <label
+                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                htmlFor="name"
+              >
+                Enter up to 5 screen names
+              </label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                type="text"
+                placeholder="Screen names separated by comma"
+                onChange={(e: any) => setTestDMScreenNames(e.target.value)}
+              />
+            </div>
+        </Modal>
       <Header name="Campaigns" />
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
@@ -81,27 +124,16 @@ export default function CreateCampaign({ campaign, segments, onSubmit }) {
                {campaign.id?"Edit Campaign":"Create Campaign"} <b>></b> {name}{" "} 
             </p>
             <div className="flex flex-row-reverse">
-            {activeTabKey === "1" && (
-              <button
-                className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded"
-              >
-                Next
-              </button>
-            )}
-
-              {activeTabKey === "2" && (
-                <>
                 <button
                 className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded"
                 onClick={handleSubmit}
               >
                 Save
               </button>
-                <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-3">
+                <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-3" 
+                 onClick={sendTestDM}>
                   Test
                 </button>
-                </>
-              )}
               <Link to={routes.CAMPAIGNS}>
                 <button className="bg-gray-100-200 hover:bg-gray-100  font-bold py-2 px-4 rounded mr-3 border">
                     Cancel
@@ -183,6 +215,8 @@ export default function CreateCampaign({ campaign, segments, onSubmit }) {
                           placeholder="Select a segment"
                           onChange={handleRecipientChange}
                           optionLabelProp="label"
+                          defaultValue= {recipients}
+                          disabled = {campaign.id}
                         >
                           {segments.map((segment) => (
                             <Option
@@ -258,16 +292,20 @@ export default function CreateCampaign({ campaign, segments, onSubmit }) {
                   </form>
                 </div>
               </TabPane>
+              {
+                campaign.id ? 
+                (<TabPane tab="Status" key="3">
+                 <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+                 {activeTabKey ==="3" && campaign.id && (<CampaignUserGrid campaignId={campaign.id}/>)}
+                </div>
+              </TabPane>):(
               <TabPane tab="Review" disabled={false} key="2">
                 <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
                    {activeTabKey ==="2" && (<FollowersGrid segmentIds={recipients}/>)}
                 </div>
-              </TabPane>
-              <TabPane tab="Status" key="3">
-                 <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
-                 {activeTabKey ==="3" && campaign.id && (<CampaignUserGrid campaignId={campaign.id}/>)}
-                </div>
-              </TabPane>
+               </TabPane>
+               )
+              }
             </Tabs>
           </div>
           <div></div>

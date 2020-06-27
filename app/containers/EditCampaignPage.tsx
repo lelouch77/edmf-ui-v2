@@ -18,6 +18,7 @@ function EditCampaignPage(props) {
   
   useEffect(()=>{
     API.getCampaign(id).then((campaign)=>{
+        campaign.segmentIds = campaign.metadata.segments.map((segment)=>segment.id);
         setCampaign(campaign);
     });
     API.getSegments().then((segments)=>{
@@ -27,15 +28,19 @@ function EditCampaignPage(props) {
 
   async function handleSubmit(newCampaign){
     //Call update from here
-    //API.createCampaign(newCampaign);
-    //openNotification("Campaign updated successfully");
-    //history.push(routes.CAMPAIGNS);
+    API.updateCampaign(newCampaign.id,newCampaign);
+    openNotification("Campaign updated successfully");
+    history.push(routes.CAMPAIGNS);
   }
 
+  async function handleTestDM(testDM){
+    API.sendDM(testDM);
+    openNotification("Test Message has been sent successfully");
+  }
 
   return  (
     <>
-     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit}/> }
+     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM}/> }
     </>
   );
 }

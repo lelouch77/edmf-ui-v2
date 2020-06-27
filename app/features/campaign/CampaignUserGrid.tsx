@@ -9,7 +9,7 @@ import API from '../../api/easyDMAPI'
 
 const CampaignUserStatusGrid = (props) => {
         const statusMap = {
-            30:"⏸ Failed",
+            30:"❌ Failed",
             40:"✔ Sent"
         }
 
@@ -28,8 +28,7 @@ const CampaignUserStatusGrid = (props) => {
 					name: params.data.name,
 					image: params.data.profile_image_url_https
 				};
-			},
-			flex:2
+			}
 		},
 		{ headerName: "Screen Name", field: "screen_name"},
 		{ headerName: "Status", field: "status",valueFormatter : (params)=>{
@@ -37,12 +36,12 @@ const CampaignUserStatusGrid = (props) => {
          }
         },
          { headerName: "Sent At", field: "updatedAt",valueFormatter : (params)=>{
-            return params.data && params.data.status && moment(params.value).format('MM/DD/YYYY HH:mm A') || ''
+            return params.data && params.data.status && moment(params.value).format('MM/DD/YYYY HH:mm A') || '--'
             }
          }
 	]
 
-	const defaultColDef = { sortable: true }
+	const defaultColDef = { sortable: true,flex:1 }
 
 	const components = {
 		nameRenderer: NameRenderer,

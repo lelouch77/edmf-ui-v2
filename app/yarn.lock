@@ -204,10 +204,10 @@ dottie@^2.0.0:
   resolved "https://registry.yarnpkg.com/dottie/-/dottie-2.0.2.tgz#cc91c0726ce3a054ebf11c55fbc92a7f266dd154"
   integrity sha512-fmrwR04lsniq/uSr8yikThDTrM7epXHBAAjH9TbeH3rEA8tdCO7mRzB9hdmdGyJCxF8KERo9CITcm3kGuoyMhg==
 
-edmf-core@^1.1.20:
-  version "1.1.20"
-  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.20.tgz#b06ab6c08c43e28ef5dc64c22da23a7c4da81ddb"
-  integrity sha512-e7ghsmkrtFnOn608WAN30kp9V7XaQsKmwhj5B+fawQKnD5t0NqoC1uqI1pwxyHgfsqsRW513Dz/CuHk2Zf+x4g==
+edmf-core@^1.1.23:
+  version "1.1.23"
+  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.23.tgz#088f2dd12fdf31986a23b1b90157073edd322cc4"
+  integrity sha512-SQaeZPtO23ZJFKR6PUkw6jtUzLOntqUWwKU+uFdwAeob2WlzblJ2D1R9I+zKdVARV2qHi85OdcpZ1ND5aJe3Dg==
   dependencies:
     "@babel/runtime" "^7.10.3"
     dotenv "^8.2.0"

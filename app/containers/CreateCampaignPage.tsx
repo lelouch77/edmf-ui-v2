@@ -9,7 +9,7 @@ import { withRouter } from "react-router";
 
 
 function CreateCampaignPage(props) {
-  console.log(props);
+
   const history = useHistory();
   const newCampaign = {
     name:"Untitled",
@@ -19,7 +19,7 @@ function CreateCampaignPage(props) {
     allocated_msg_count:100,
     scheduled_time:null
   }
-  //Fetch this from API
+
   const [allSegments, setAllSegments]=  useState([]);
 
   useEffect(()=>{
@@ -34,8 +34,13 @@ function CreateCampaignPage(props) {
     history.push(routes.CAMPAIGNS);
   }
 
+  async function handleTestDM(testDM){
+    API.sendDM(testDM);
+    openNotification("Test Message has been sent successfully");
+  }
 
-  return <CreateCampaign campaign={newCampaign} segments={allSegments}  onSubmit={handleSubmit} />;
+
+  return <CreateCampaign campaign={newCampaign} segments={allSegments}  onSubmit={handleSubmit} onTestDM={handleTestDM} />;
 }
 
 const CreateCampaignPageWithRouter = withRouter(CreateCampaignPage)

@@ -9,9 +9,10 @@ import { AgGridReact } from 'ag-grid-react';
 import moment from 'moment';
 import ActionRenderer from '../../components/renderers/ActionRenderer';
 import LinkRenderer from '../../components/renderers/LinkRenderer';
+import {formatTimeStamp} from '../../utils/DateUtils'
 
 
-export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
+export default function Campaign({campaigns,editCampaign,deleteCampaign,updateCampaign}) {
   const statusMap = {
     10:"🕑 Scheduled",
     30:"⏸ Paused",
@@ -22,6 +23,15 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
     deleteCampaign(campaign.id);
   }
 
+  function handlePauseCampaign(campaign){
+    updateCampaign(campaign.id,{status:30});
+  }
+
+  function handleRestartCampaign(campaign){
+    updateCampaign(campaign.id,{status:10});
+  }
+
+
  const defaultColDef = { sortable: true ,flex:1}
   const columnDefs = [
   { headerName: "Name", field: "name",cellRenderer: 'linkRenderer',cellRendererParams: {
@@ -29,14 +39,19 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
       }},
   { headerName: "Description", field: "description",flex:2},
   { headerName: "Messages Per Day", field: "allocated_msg_count" },
+  { headerName: "Scheduled At", field: "scheduled_time" ,valueFormatter:(params)=>{
+    return formatTimeStamp(params.value)
+  }},
   { headerName: "Status", field: "status" ,valueFormatter : (params)=>{
     return statusMap[params.value]
   } },
-  { headerName: "Last Updated", field: "updatedAt",valueFormatter : (params)=>{
-    return moment(params.value).format('MM/DD/YYYY HH:mm A')
+  { headerName: "Last Run", field: "last_run",valueFormatter : (params)=>{
+    return params.value && moment(params.value).format('MM/DD/YYYY HH:mm A') || '--'
   }},
   { headerName: "Action",cellRenderer: 'actionRenderer',cellRendererParams: {
         onDelete: handleDeleteCampaign, 
+        onPause: handlePauseCampaign, 
+        onRestart: handleRestartCampaign
       }}
 ]
 

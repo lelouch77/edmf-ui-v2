@@ -10,7 +10,7 @@ function CampaignsPage() {
   const [isLoading,setLoading] = useState(true);
 
   function getCampaigns(){
-    API.getAllCampaigns({order:[['updatedAt','DESC']]}).then((allCampaigns)=>{
+    API.getAllCampaigns({order:[['createdAt','DESC']]}).then((allCampaigns)=>{
        setCampaigns(allCampaigns);
        setLoading(false);
      });
@@ -30,9 +30,15 @@ function CampaignsPage() {
     });
   }
 
+  function updateCampaign(id,updatedCampaign){
+    API.updateCampaign(id,updatedCampaign).then(()=>{
+      getCampaigns();
+    });
+  }
+
   return (
     <>
-     {!isLoading && <Campaign campaigns={campaigns} editCampaign={editCampaign} deleteCampaign={deleteCampaign}/> }
+     {!isLoading && <Campaign campaigns={campaigns} editCampaign={editCampaign} deleteCampaign={deleteCampaign} updateCampaign={updateCampaign}/> }
     </>
   );
 }
