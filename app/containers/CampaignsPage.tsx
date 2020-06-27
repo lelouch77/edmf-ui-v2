@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Campaign from '../features/campaign/Campaign';
 // import { Dialog } from "@blueprintjs/core";
-import APIKeys from '../features/APIKeys'
 const { ipcRenderer } = require('electron');
 
 
 export default function CampaignsPage() {
-  const [showModal, setShowModal] = useState(true)
     // mainProcess.getUserObject().then((userObject: any) => {
     //   if(!userObject) setShowModal(true)
     // })

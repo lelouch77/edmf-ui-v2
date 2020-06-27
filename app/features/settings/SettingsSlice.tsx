@@ -3,6 +3,7 @@ import API from '../../api/easyDMAPI'
 import { AppThunk } from '../../store'
 
 interface ISettings {
+  _defaultSlice: boolean
 	access_token_key?: string
 	access_token_secret?: string
 	consumer_key?: string
@@ -16,7 +17,9 @@ interface SettingsState {
 }
 
 const initialState: SettingsState = {
-  settings: {},
+  settings: { 
+    _defaultSlice: true
+  },
   isLoading: false,
   error: null
 }
@@ -46,11 +49,13 @@ const fetchSettings = (): AppThunk => async dispatch => {
 	try {
     dispatch(settings.actions.onStart())
     const userInfo = await API.getUserObject()
-		dispatch(settings.actions.onSuccess(userInfo))
+		dispatch(settings.actions.onSuccess(userInfo || {}))
 	} catch (err) {
 		dispatch(settings.actions.onError(err.toString()))
 	}
 }
 
+const setSettings = (userInfo: any) => (dispatch: any) => dispatch(settings.actions.onSuccess(userInfo))
+
 export default settings.reducer;
-export { fetchSettings };
+export { fetchSettings, setSettings };

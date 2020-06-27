@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Settings from '../features/settings/Settings';
 import { useSelector } from 'react-redux';
 
