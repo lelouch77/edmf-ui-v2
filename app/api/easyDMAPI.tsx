@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+const PUBLIC_METHODS = require('edmf-core/dist/export.details');
 
 export interface Campaign {
   id: number
@@ -12,7 +13,11 @@ const api = (path: string, params: Array<any> = []) => {
   ipcRenderer.send(path, ...params)
    return new Promise((resolve) => {
       ipcRenderer.once(path, (e, data) => {
-          resolve(data);
+          if(data.error){
+            reject(data.error);
+          }else{
+            resolve(data);
+          }
       });
    });
 }
@@ -31,12 +36,9 @@ export async function getCampaigns(): Promise<CampaignResult>{
     }];
 }
 
-
-const routes = ['getFollowers','getPaginatedFollowers', 'getUserObject', 'setKeys']
-
 const exportFunctions: any = {}
-
-routes.forEach((functionName: string) => {
+//console.log(PUBLIC_METHODS);
+PUBLIC_METHODS.default.forEach((functionName: string) => {
   exportFunctions[functionName] = (...args: Array<any>) => api(functionName, args)
 })
 
