@@ -1,35 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Campaign from '../features/campaign/Campaign';
 import API from '../api/easyDMAPI'
-
-
+import { useHistory } from "react-router-dom";
+import routes from '../constants/routes.json';
 
 function CampaignsPage() {
-
+  const history = useHistory();
+  const [campaigns,setCampaigns] = useState([]);
+  const [isLoading,setLoading] = useState(false);
   useEffect(()=>{
      API.getAllActiveCampaign().then((allCampaigns)=>{
-       console.log(allCampaigns);
+       setCampaigns(allCampaigns);
+       setLoading(true);
      });
   },[]);
 
+  function editCampaign(campaign){
+    //TODO: This is not working correctly
+    history.push(routes.CREATECAMPAIGN+`/${campaign.id}`);
+  }
+
   return (
     <>
-      {/* { showModal &&
-        <Dialog
-          className={``}
-          onClose={() => setShowModal(false)}
-          title="API Keys"
-          autoFocus={true}
-          canEscapeKeyClose={true}
-          canOutsideClickClose={true}
-          enforceFocus= {true}
-          isOpen={true}
-          usePortal= {true}
-        >
-          <APIKeys />
-        </Dialog>
-      } */}
-      <Campaign />
+     {isLoading && <Campaign campaigns={campaigns} editCampaign={editCampaign}/> }
     </>
   );
 }
