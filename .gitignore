@@ -48,5 +48,10 @@ npm-debug.log.*
 *.css.d.ts
 *.sass.d.ts
 *.scss.d.ts
+<<<<<<< HEAD
  
 app/jupiter.sqlite  
+=======
+
+app/jupiter.sqlite
+>>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f

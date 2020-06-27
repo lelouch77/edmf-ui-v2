@@ -194,16 +194,20 @@ detect-libc@^1.0.2:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
+<<<<<<< HEAD
 dotenv@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
+=======
+>>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
 dottie@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/dottie/-/dottie-2.0.2.tgz#cc91c0726ce3a054ebf11c55fbc92a7f266dd154"
   integrity sha512-fmrwR04lsniq/uSr8yikThDTrM7epXHBAAjH9TbeH3rEA8tdCO7mRzB9hdmdGyJCxF8KERo9CITcm3kGuoyMhg==
 
+<<<<<<< HEAD
 edmf-core@^1.1.23:
   version "1.1.23"
   resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.23.tgz#088f2dd12fdf31986a23b1b90157073edd322cc4"
@@ -211,6 +215,14 @@ edmf-core@^1.1.23:
   dependencies:
     "@babel/runtime" "^7.10.3"
     dotenv "^8.2.0"
+=======
+edmf-core@^1.1.15:
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.15.tgz#c1345c94d57715dba00907b2a2b1217d4650b44c"
+  integrity sha512-VJblE2/kdDM8VN1zUDuNRanJndxlBVLMb+WMIKIYMCbTkmb2z1RrVG86wdwDDzU9ZMKP7+h1Fh+vQVyfWTMydw==
+  dependencies:
+    "@babel/runtime" "^7.10.3"
+>>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
     sequelize "^5.21.13"
     sqlite3 "^4.2.0"
     twitter-lite "^0.14.0"
