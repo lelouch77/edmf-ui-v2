@@ -3,7 +3,7 @@ import Followers from '../features/followers/Followers'
 import { getFollowers } from '../api/easyDMAPI'
 
 const FollowersPage = () => {
-	return <Followers />;
+	return <Followers/>;
 }
  
 export default FollowersPage;
