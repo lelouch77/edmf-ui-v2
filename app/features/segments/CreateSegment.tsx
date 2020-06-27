@@ -3,7 +3,8 @@ import Header from '../../containers/Header';
 import { AgGridReact } from 'ag-grid-react';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json'
-import { Input, Select } from 'antd';
+import { Input, Select, Button } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
 const defaultColDef = {  sortable: true }
@@ -17,7 +18,7 @@ const types: any = {
 		{ id: 'LTE', label: '<=' },
 	],
 	string: [
-		{ id: 'contains', label: 'contains' }
+		{ id: 'contains', label: 'contains' },
 	],
 	columns: [
 		{ id: 'screen_name', label: 'Screen Name', type: 'string', added: false },
@@ -45,7 +46,7 @@ const TypedDropdown = ({ options = [], value, handleChange, disabled = false, wi
 	)
 }
 
-const FilterRow = ({ index = 0, filter, joinCondition, setJoinCondition, updateFilter }: any) => {
+const FilterRow = ({ index = 0, filter, deleteFilter, joinCondition, setJoinCondition, updateFilter }: any) => {
 	
 	const [column, setColumn] = useState(filter.column || null)
 	const [comparatorType, setComparatorType] = useState(filter.conditionType || 'string')
@@ -55,14 +56,22 @@ const FilterRow = ({ index = 0, filter, joinCondition, setJoinCondition, updateF
 	useEffect(() => {
 		if(column){
 			setComparatorType(types.columns.find((item: any) => item.id == column).type)
-			setComparator('')
-			setConstraint('')
 		}
 	}, [column])
 
 	useEffect(() => {
-		updateFilter({ column, comparator, constraint })
-	}, [column, comparator, constraint])
+		setColumn(filter.column)
+		setComparator(filter.comparator)
+		setConstraint(filter.constraint)
+	}, [filter])
+
+	const handleUpdateFilter = (args: any) => {
+		if(args.column){
+			args.comparator = '',
+			args.constraint = ''
+		}
+		updateFilter({ column, comparator, constraint, ...args })
+	}
 
 	return (
 		<div className="flex items-center mb-2">
@@ -71,16 +80,18 @@ const FilterRow = ({ index = 0, filter, joinCondition, setJoinCondition, updateF
 			{ index === 1 && <div><TypedDropdown value={joinCondition} options={types.joinCondition} handleChange={setJoinCondition} width={80} /></div> }
 			{ index > 1 && <div style={{ width: 80 }}>{ joinCondition }</div> }
 			{/* Select Column */}
-			<div className="ml-2"><TypedDropdown options={types.columns} handleChange={setColumn} /></div>
+			<div className="ml-2"><TypedDropdown options={types.columns} value={column} handleChange={(value) => handleUpdateFilter({ column: value })} /></div>
 			{/* comparator */}
-			<div className="ml-2"><TypedDropdown options={types[comparatorType]} value={comparator} handleChange={setComparator} disabled={!column} /></div>
+			<div className="ml-2"><TypedDropdown options={types[comparatorType]} value={comparator} handleChange={(value) => handleUpdateFilter({ comparator: value })} disabled={!column} /></div>
 			{/* constraint */}
 			<div className="ml-2">
 				{ comparatorType == 'boolean' ? 
-					<TypedDropdown options={types.booleanOptions} handleChange={setConstraint} disabled={!column} /> :
-					<Input placeholder="Value" value={constraint} onChange={e => setConstraint(e.target.value)} disabled={!column} />
+					<TypedDropdown options={types.booleanOptions} value={constraint} handleChange={(value) => handleUpdateFilter({ constraint: value })} disabled={!column} /> :
+					<Input placeholder="Value" value={constraint} onChange={e => handleUpdateFilter({ constraint: e.target.value })} disabled={!column} />
 				}
 			</div>
+			{/* delete button */}
+			<Button className="flex items-center justify-center mx-3" onClick={deleteFilter} icon={<DeleteOutlined />}/>
 		</div>
 	)
 }
@@ -108,16 +119,18 @@ export default () => {
 					<p className="text-gray-500">Segment <b>></b> Create Segment </p>
 				</div>
 				<div>
-					<div className="p-2">
+					<div className="">
 						<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Filters</div>
 						<div className="flex flex-col align-left p-5 border-solid border-2 border-gray-300">
 							{ filters.map((filter, index) => 
 								<FilterRow
 									filter={filter}
 									index={index}
+									key={index}
 									joinCondition={joinCondition}
 									setJoinCondition={setJoinCondition}
 									updateFilter={(updatedFilter: any) => updateFilter(index, updatedFilter)}
+									deleteFilter = {() => setFilters(filters.filter((item, idx) => idx != index))}
 								/>
 							)}
 							<div onClick={createFilterRow} className="color-indigo-700 hover:underline cursor-pointer">
