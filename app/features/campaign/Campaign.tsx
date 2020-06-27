@@ -8,12 +8,12 @@ import NoCampaignFound from './NoCampaign'
 import { AgGridReact } from 'ag-grid-react';
 import moment from 'moment';
 import ActionRenderer from '../../components/renderers/ActionRenderer';
-
+import LinkRenderer from '../../components/renderers/LinkRenderer';
 
 
 export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
   const statusMap = {
-    20:"🕑 Scheduled",
+    10:"🕑 Scheduled",
     30:"⏸ Paused",
     40:"✔ Done"
   }
@@ -24,7 +24,9 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
 
  const defaultColDef = { sortable: true ,flex:1}
   const columnDefs = [
-  { headerName: "Name", field: "name"},
+  { headerName: "Name", field: "name",cellRenderer: 'linkRenderer',cellRendererParams: {
+        onClick: handleEditCampaign, 
+      }},
   { headerName: "Description", field: "description",flex:2},
   { headerName: "Messages Per Day", field: "allocated_msg_count" },
   { headerName: "Status", field: "status" ,valueFormatter : (params)=>{
@@ -39,16 +41,13 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
 ]
 
  const frameworkComponents = {
-	actionRenderer: ActionRenderer
+	actionRenderer: ActionRenderer,
+  linkRenderer:LinkRenderer
 }
 
- function handleEditCampaign(params){
-  var selectedRows = params.api.getSelectedRows();
-  if(selectedRows.length >0){
-    editCampaign(selectedRows[0])
-  }
-   
- }
+function handleEditCampaign(campaign){
+   editCampaign(campaign);
+}
 
   return (
       <div className="w-full">
@@ -71,14 +70,12 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
                       defaultColDef={defaultColDef}
                       rowData={campaigns}
                       onSelectionChanged={handleEditCampaign}
-                      
                       frameworkComponents ={frameworkComponents}
                     >
                     </AgGridReact>
 				        </div>
             </>
             ):(<NoCampaignFound/>) }
-
           </div>
         </main>
       </div>

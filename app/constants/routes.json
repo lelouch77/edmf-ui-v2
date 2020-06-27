@@ -4,5 +4,6 @@
   "CREATECAMPAIGN":"/createCampaign",
   "SEGMENTS":"/segments",
   "SETTINGS":"/settings",
-  "FOLLOWERS": "/followers"
+  "FOLLOWERS": "/followers",
+  "EDITCAMPAIGN":"/editCampaign"
 }

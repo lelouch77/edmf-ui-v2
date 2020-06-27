@@ -8,20 +8,26 @@ function CampaignsPage() {
   const history = useHistory();
   const [campaigns,setCampaigns] = useState([]);
   const [isLoading,setLoading] = useState(true);
-  useEffect(()=>{
-     API.getAllActiveCampaign().then((allCampaigns)=>{
+
+  function getCampaigns(){
+    API.getAllCampaigns({order:[['updatedAt','DESC']]}).then((allCampaigns)=>{
        setCampaigns(allCampaigns);
        setLoading(false);
      });
+  }
+  useEffect(()=>{
+    getCampaigns();
   },[]);
 
-  function editCampaign(campaign){
+  async function editCampaign(campaign){
     //TODO: This is not working correctly
-    history.push(routes.CREATECAMPAIGN+`/${campaign.id}`);
+    history.push(routes.EDITCAMPAIGN+`/${campaign.id}`);
   }
 
   function deleteCampaign(id){
-    API.deleteCampaign(id);
+    API.deleteCampaign(id).then(()=>{
+      getCampaigns();
+    });
   }
 
   return (

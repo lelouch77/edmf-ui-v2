@@ -5,39 +5,40 @@ import { useHistory } from "react-router-dom";
 import routes from '../constants/routes.json';
 import {notification } from 'antd';
 import openNotification from '../components/common/Notification';
-import { withRouter } from "react-router";
+import { useParams } from "react-router";
 
 
-function CreateCampaignPage(props) {
-  console.log(props);
+function EditCampaignPage(props) {
+  const {id} = useParams();
   const history = useHistory();
-  const newCampaign = {
-    name:"Untitled",
-    description:"",
-    message:"",
-    segmentIds:[],
-    allocated_msg_count:100,
-    scheduled_time:null
-  }
+  const [campaign,setCampaign] = useState(null);
+
   //Fetch this from API
   const [allSegments, setAllSegments]=  useState([]);
-
+  
   useEffect(()=>{
+    API.getCampaign(id).then((campaign)=>{
+        setCampaign(campaign);
+    });
     API.getSegments().then((segments)=>{
       setAllSegments(segments);
     });
   },[]);
 
   async function handleSubmit(newCampaign){
-    API.createCampaign(newCampaign);
-    openNotification("Campaign created successfully");
-    history.push(routes.CAMPAIGNS);
+    //Call update from here
+    //API.createCampaign(newCampaign);
+    //openNotification("Campaign updated successfully");
+    //history.push(routes.CAMPAIGNS);
   }
 
 
-  return <CreateCampaign campaign={newCampaign} segments={allSegments}  onSubmit={handleSubmit} />;
+  return  (
+    <>
+     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit}/> }
+    </>
+  );
 }
 
-const CreateCampaignPageWithRouter = withRouter(CreateCampaignPage)
 
-export default CreateCampaignPageWithRouter;
+export default EditCampaignPage;
