@@ -7,25 +7,40 @@ import { fetchCampaigns,selectCampaigns } from './campaignSlice'
 import NoCampaignFound from './NoCampaign'
 import { AgGridReact } from 'ag-grid-react';
 import moment from 'moment';
+import ActionRenderer from '../../components/renderers/ActionRenderer';
 
-export default function Campaign({campaigns,editCampaign}) {
+
+
+export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
   const statusMap = {
     20:"🕑 Scheduled",
     30:"⏸ Paused",
     40:"✔ Done"
   }
-  const columnDefs = [
-    { headerName: "Name", field: "name"},
-    { headerName: "Description", field: "description",flex:2},
-    { headerName: "Messages Per Day", field: "allocated_msg_count" },
-    { headerName: "Status", field: "status" ,valueFormatter : (params)=>{
-      return statusMap[params.value]
-    } },
-    { headerName: "Last Updated", field: "updatedAt",valueFormatter : (params)=>{
-      return moment(params.value).format('MM/DD/YYYY HH:mm A')
-    }}
-  ]
+
+  function handleDeleteCampaign(campaign){
+    deleteCampaign(campaign.id);
+  }
+
  const defaultColDef = { sortable: true ,flex:1}
+  const columnDefs = [
+  { headerName: "Name", field: "name"},
+  { headerName: "Description", field: "description",flex:2},
+  { headerName: "Messages Per Day", field: "allocated_msg_count" },
+  { headerName: "Status", field: "status" ,valueFormatter : (params)=>{
+    return statusMap[params.value]
+  } },
+  { headerName: "Last Updated", field: "updatedAt",valueFormatter : (params)=>{
+    return moment(params.value).format('MM/DD/YYYY HH:mm A')
+  }},
+  { headerName: "Action",cellRenderer: 'actionRenderer',cellRendererParams: {
+        onDelete: handleDeleteCampaign, 
+      }}
+]
+
+ const frameworkComponents = {
+	actionRenderer: ActionRenderer
+}
 
  function handleEditCampaign(params){
   var selectedRows = params.api.getSelectedRows();
@@ -56,7 +71,8 @@ export default function Campaign({campaigns,editCampaign}) {
                       defaultColDef={defaultColDef}
                       rowData={campaigns}
                       onSelectionChanged={handleEditCampaign}
-                      rowSelection={'single'}
+                      
+                      frameworkComponents ={frameworkComponents}
                     >
                     </AgGridReact>
 				        </div>

@@ -1,29 +1,18 @@
-import React, { Component } from 'react';
+import React, { ReactNode } from 'react';
+import { DeleteOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
 
-export default class ActionRenderer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: props.value,
-    };
-  }
-
-  formatValueToCurrency(currency, value) {
-    return `${currency}${value.toFixed(2)}`;
-  }
-
-  // noinspection JSUnusedGlobalSymbols
-  refresh(params) {
-    if (params.value !== this.state.value) {
-      this.setState({
-        value: params.value,
-      });
+export default function ActionRenderer(props: Props) { 
+    function confirm(e) {
+        props.onDelete(props.data);
     }
-    return true;
-  }
 
-  render() {
-    return <span>{this.formatValueToCurrency('EUR', this.state.value)}</span>;
-  }
+   return (
+    <Popconfirm
+    title="Are you sure you want to delete this campaign?"
+    onConfirm={confirm}
+    okText="Yes"
+    cancelText="No"
+  ><div className="-mt-1"><DeleteOutlined style={{ fontSize: '16px', color: '#08c' }} /></div></Popconfirm>
+  );
 }
