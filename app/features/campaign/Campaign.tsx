@@ -8,7 +8,6 @@ import NoCampaignFound from './NoCampaign'
 import { AgGridReact } from 'ag-grid-react';
 import moment from 'moment';
 import ActionRenderer from '../../components/renderers/ActionRenderer';
-<<<<<<< HEAD
 import LinkRenderer from '../../components/renderers/LinkRenderer';
 import {formatTimeStamp} from '../../utils/DateUtils'
 
@@ -16,14 +15,6 @@ import {formatTimeStamp} from '../../utils/DateUtils'
 export default function Campaign({campaigns,editCampaign,deleteCampaign,updateCampaign}) {
   const statusMap = {
     10:"🕑 Scheduled",
-=======
-
-
-
-export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
-  const statusMap = {
-    20:"🕑 Scheduled",
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
     30:"⏸ Paused",
     40:"✔ Done"
   }
@@ -32,7 +23,6 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
     deleteCampaign(campaign.id);
   }
 
-<<<<<<< HEAD
   function handlePauseCampaign(campaign){
     updateCampaign(campaign.id,{status:30});
   }
@@ -62,26 +52,10 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
         onDelete: handleDeleteCampaign, 
         onPause: handlePauseCampaign, 
         onRestart: handleRestartCampaign
-=======
- const defaultColDef = { sortable: true ,flex:1}
-  const columnDefs = [
-  { headerName: "Name", field: "name"},
-  { headerName: "Description", field: "description",flex:2},
-  { headerName: "Messages Per Day", field: "allocated_msg_count" },
-  { headerName: "Status", field: "status" ,valueFormatter : (params)=>{
-    return statusMap[params.value]
-  } },
-  { headerName: "Last Updated", field: "updatedAt",valueFormatter : (params)=>{
-    return moment(params.value).format('MM/DD/YYYY HH:mm A')
-  }},
-  { headerName: "Action",cellRenderer: 'actionRenderer',cellRendererParams: {
-        onDelete: handleDeleteCampaign, 
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
       }}
 ]
-
  const frameworkComponents = {
-<<<<<<< HEAD
+
 	actionRenderer: ActionRenderer,
   linkRenderer:LinkRenderer
 }
@@ -89,18 +63,7 @@ export default function Campaign({campaigns,editCampaign,deleteCampaign}) {
 function handleEditCampaign(campaign){
    editCampaign(campaign);
 }
-=======
-	actionRenderer: ActionRenderer
-}
 
- function handleEditCampaign(params){
-  var selectedRows = params.api.getSelectedRows();
-  if(selectedRows.length >0){
-    editCampaign(selectedRows[0])
-  }
-   
- }
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
 
   return (
       <div className="w-full">
@@ -123,20 +86,12 @@ function handleEditCampaign(campaign){
                       defaultColDef={defaultColDef}
                       rowData={campaigns}
                       onSelectionChanged={handleEditCampaign}
-<<<<<<< HEAD
-=======
-                      
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
                       frameworkComponents ={frameworkComponents}
                     >
                     </AgGridReact>
 				        </div>
             </>
             ):(<NoCampaignFound/>) }
-<<<<<<< HEAD
-=======
-
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
           </div>
         </main>
       </div>

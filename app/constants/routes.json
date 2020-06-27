@@ -4,10 +4,6 @@
   "CREATECAMPAIGN":"/createCampaign",
   "SEGMENTS":"/segments",
   "SETTINGS":"/settings",
-<<<<<<< HEAD
   "FOLLOWERS": "/followers",
   "EDITCAMPAIGN":"/editCampaign"
-=======
-  "FOLLOWERS": "/followers"
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
 }

@@ -5,10 +5,7 @@ import routes from './constants/routes.json';
 import App from './containers/App';
 import CampaignsPage from './containers/CampaignsPage';
 import CreateCampaignPageWithRouter from './containers/CreateCampaignPage';
-<<<<<<< HEAD
 import EditCampaignPage from './containers/EditCampaignPage';
-=======
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
 import SettingsPage from './containers/SettingsPage';
 import FollowersPage from './containers/FollowersPage';
 import SegmentsPage from './containers/SegmentsPage';
@@ -34,10 +31,7 @@ export default function Routes() {
           <Route path={routes.SEGMENTS} component={SegmentsPage} />
           <Route path={routes.FOLLOWERS} component={FollowersPage} />
           <Route path={routes.SETTINGS} component={SettingsPage} />
-<<<<<<< HEAD
           <Route path={`${routes.EDITCAMPAIGN}/:id`} component={EditCampaignPage} />
-=======
->>>>>>> c7366cafbab7042bbd0d4cf5b22e44103c2f728f
         </Switch>
       </Router>
     </App>
