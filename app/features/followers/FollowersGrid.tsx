@@ -10,10 +10,15 @@ import API from '../../api/easyDMAPI'
 const FollowersGrid = (props) => {
         const [gridAPI,setGridAPI] = useState(null);
         const [tableCount,setTableCount] = useState(0);
-        
+				const [where, setWhere] = useState(props.where)
+			
         useEffect(()=>{
            gridAPI && gridAPI.purgeInfiniteCache();
-        },[props.segmentIds]);
+				},[props.segmentIds, where]);
+				
+				useEffect(() => {
+					setWhere(props.where)
+				}, [props.where])
 
 		const columnDefs = [
 		{ 
@@ -64,6 +69,9 @@ const FollowersGrid = (props) => {
 					let query = {offset:params.startRow,limit:100,order:sortParams};
 					if(props.segmentIds && props.segmentIds.length>0){
 						query.segmentIds = props.segmentIds;
+					}
+					if(where){
+						query.where = where
 					}
 					API.getPaginatedFollowers(query).then((res)=>{
                         //TBD Update the table count from the Query

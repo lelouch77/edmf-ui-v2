@@ -199,17 +199,15 @@ dotenv@^8.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
-
 dottie@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/dottie/-/dottie-2.0.2.tgz#cc91c0726ce3a054ebf11c55fbc92a7f266dd154"
   integrity sha512-fmrwR04lsniq/uSr8yikThDTrM7epXHBAAjH9TbeH3rEA8tdCO7mRzB9hdmdGyJCxF8KERo9CITcm3kGuoyMhg==
 
-
-edmf-core@^1.1.23:
-  version "1.1.23"
-  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.23.tgz#088f2dd12fdf31986a23b1b90157073edd322cc4"
-  integrity sha512-SQaeZPtO23ZJFKR6PUkw6jtUzLOntqUWwKU+uFdwAeob2WlzblJ2D1R9I+zKdVARV2qHi85OdcpZ1ND5aJe3Dg==
+edmf-core@^1.1.24:
+  version "1.1.24"
+  resolved "https://registry.yarnpkg.com/edmf-core/-/edmf-core-1.1.24.tgz#0b85918f1628e6193ac6b3f5d5c64f311c230339"
+  integrity sha512-6vUPiIQZ/sq2P1A3I80TRU1IXqZVL4aU6Rsw7yQDt88Sn++v7q+NDxem5Obwc4rMfgz/4+looBglxByXmC/L7A==
   dependencies:
     "@babel/runtime" "^7.10.3"
     dotenv "^8.2.0"
