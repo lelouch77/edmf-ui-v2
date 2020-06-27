@@ -11,7 +11,7 @@ export interface Campaign {
 
 const api = (path: string, params: Array<any> = []) => {
   ipcRenderer.send(path, ...params)
-   return new Promise((resolve) => {
+   return new Promise((resolve, reject) => {
       ipcRenderer.once(path, (e, data) => {
           if(data.error){
             reject(data.error);
