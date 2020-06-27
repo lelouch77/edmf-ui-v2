@@ -31,11 +31,11 @@ const FollowersGrid = (props) => {
 			},
 			flex:2
 		},
-		{ headerName: "Screen Name", field: "screen_name"},
-		{ headerName: "Followers Count", field: "followers_count" },
-		{ headerName: "Friends Count", field: "friends_count" },
+		{ headerName: "Screen Name", field: "screen_name",flex:1},
+		{ headerName: "Followers Count", field: "followers_count" ,flex:1},
+		{ headerName: "Friends Count", field: "friends_count" ,flex:1},
 		{ headerName: "Location", field: "location",flex:2},
-		{ headerName: "Verified", field: "verified" ,cellRenderer: 'verifiedRenderer'}
+		{ headerName: "Verified", field: "verified" ,cellRenderer: 'verifiedRenderer',flex:1}
 	]
 
 	const defaultColDef = { sortable: true }
@@ -84,9 +84,13 @@ const FollowersGrid = (props) => {
 	};
 	return (
           <>
-            <div class="flex flex-row-reverse mb-2 text-gray-500">
-                Showing {tableCount} records
-            </div>
+                {
+                    !props.hideRecordCount && (
+                            <div class="flex flex-row-reverse mb-2 text-gray-500" >
+                                    Showing {tableCount} records
+                            </div>
+                    )
+                }
                 <AgGridReact 
                     columnDefs={columnDefs}
                     defaultColDef={defaultColDef}

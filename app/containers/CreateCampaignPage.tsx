@@ -27,9 +27,10 @@ function CreateCampaignPage(props) {
   },[]);
 
   async function handleSubmit(newCampaign){
-    API.createCampaign(newCampaign);
+    const campaign =await API.createCampaign(newCampaign);
     openNotification("Campaign created successfully");
     history.push(routes.CAMPAIGNS);
+    // history.push(routes.EDITCAMPAIGN+`/${campaign.id}`);
   }
 
 
