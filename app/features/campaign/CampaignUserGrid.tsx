@@ -5,6 +5,7 @@ import NameRenderer from '../../components/renderers/NameRenderer';
 import VerifiedRenderer from '../../components/renderers/VerifiedRenderer';
 import { InfiniteRowModelModule } from 'ag-grid-community';
 import API from '../../api/easyDMAPI'
+import moment from 'moment'
 
 
 const CampaignUserStatusGrid = (props) => {
@@ -29,15 +30,18 @@ const CampaignUserStatusGrid = (props) => {
 					image: params.data.profile_image_url_https
 				};
 			}
+            ,flex:2
 		},
-		{ headerName: "Screen Name", field: "screen_name"},
+		{ headerName: "Screen Name", field: "screen_name" ,flex:1},
 		{ headerName: "Status", field: "status",valueFormatter : (params)=>{
             return params.value? statusMap[params.value] :"🕑 Scheduled"
          }
+         ,flex:1
         },
          { headerName: "Sent At", field: "updatedAt",valueFormatter : (params)=>{
             return params.data && params.data.status && moment(params.value).format('MM/DD/YYYY HH:mm A') || '--'
             }
+            ,flex:1
          }
 	]
 

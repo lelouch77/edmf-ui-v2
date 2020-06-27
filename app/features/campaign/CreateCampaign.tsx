@@ -12,7 +12,9 @@ import {
   Col,
   Input,
   Tabs,
-  Modal
+  Modal,
+  Progress,
+  Statistic
 } from "antd";
 import moment from "moment";
 import { CheckOutlined ,TwitterOutlined} from '@ant-design/icons';
@@ -131,7 +133,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
                 Save
               </button>
                 <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-3" 
-                 onClick={sendTestDM}>
+                 onClick={sendTestDM} disabled={message.length===0}>
                   Test
                 </button>
               <Link to={routes.CAMPAIGNS}>
@@ -296,13 +298,27 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
                 campaign.id ? 
                 (<TabPane tab="Status" key="3">
                  <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
-                 {activeTabKey ==="3" && campaign.id && (<CampaignUserGrid campaignId={campaign.id}/>)}
+                 {activeTabKey ==="3" && campaign.id && (
+                   <>
+                     <div class="flex flex-row-reverse">
+                        <div class="w-1/4 text-right">
+                          <Statistic value={93} suffix="/ 100 sent" />
+                        </div>
+                     </div> 
+                       <CampaignUserGrid campaignId={campaign.id}/>
+                   </>
+                 )
+                 }
                 </div>
               </TabPane>):(
               <TabPane tab="Review" disabled={false} key="2">
-                <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
-                   {activeTabKey ==="2" && (<FollowersGrid segmentIds={recipients}/>)}
-                </div>
+                   {activeTabKey ==="2" && (
+
+                    <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+                         <FollowersGrid segmentIds={recipients} hideRecordCount={true}/>
+                      </div>
+
+                   )}
                </TabPane>
                )
               }
