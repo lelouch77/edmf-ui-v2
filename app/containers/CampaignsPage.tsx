@@ -7,11 +7,11 @@ import routes from '../constants/routes.json';
 function CampaignsPage() {
   const history = useHistory();
   const [campaigns,setCampaigns] = useState([]);
-  const [isLoading,setLoading] = useState(false);
+  const [isLoading,setLoading] = useState(true);
   useEffect(()=>{
      API.getAllActiveCampaign().then((allCampaigns)=>{
        setCampaigns(allCampaigns);
-       setLoading(true);
+       setLoading(false);
      });
   },[]);
 
@@ -20,9 +20,16 @@ function CampaignsPage() {
     history.push(routes.CREATECAMPAIGN+`/${campaign.id}`);
   }
 
+  function deleteCampaign(id){
+    setLoading(true);
+    API.deleteCampaign(id).then(()=>{
+      setLoading(false);
+    });
+  }
+
   return (
     <>
-     {isLoading && <Campaign campaigns={campaigns} editCampaign={editCampaign}/> }
+     {!isLoading && <Campaign campaigns={campaigns} editCampaign={editCampaign} deleteCampaign={deleteCampaign}/> }
     </>
   );
 }

@@ -23,7 +23,22 @@ function CreateCampaignPage(props) {
   const allSegments= [];
 
   async function handleSubmit(newCampaign){
-    //API.createCampaign(newCampaign);
+    //   const segment = await API.createSegment({
+    //     name: "Segment 1",
+    //     description: "This is a test Segment",
+    //     filters: {
+    //         filterType: "AND",
+    //         conditions: [
+    //             {
+    //                 id: "followers_count",
+    //                 operator: "GT",
+    //                 value: 500000
+    //             }
+    //         ]
+    //     }
+    // });
+    newCampaign.segmentIds = [1]
+    API.createCampaign(newCampaign);
     openNotification("Campaign created successfully");
     history.push(routes.CAMPAIGNS);
   }
