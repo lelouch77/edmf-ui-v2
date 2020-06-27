@@ -1,79 +1,34 @@
 import React, { useEffect } from 'react';
 import Campaign from '../features/campaign/Campaign';
-// import { Dialog } from "@blueprintjs/core";
-const { ipcRenderer } = require('electron');
+import API from '../api/easyDMAPI'
+import { useHistory } from "react-router-dom";
+import routes from '../constants/routes.json';
 
-
-export default function CampaignsPage() {
-    // mainProcess.getUserObject().then((userObject: any) => {
-    //   if(!userObject) setShowModal(true)
-    // })
-
-
-    useEffect(() => {
-      console.log('Inside Use Effect......', ipcRenderer)
-      ipcRenderer.send('user:getKeys')
-      //ipcRenderer.send('user:syncFollowers')
-
-    //   mainProcess.setKeys({
-    //     consumer_key: 'xxxxxx',
-    //     consumer_secret: 'xxxxxx',
-    //     access_token_key: 'xxxxxx-xxxxxx',
-    //     access_token_secret: 'xxxxxx'
-    //   }).then((res: any) => alert(JSON.stringify(res)))
-    //  ipcRenderer.once('user:syncFollowers', (e,data) => {
-    //     console.log('received......')
-    //     console.log(data)
-    //     ipcRenderer.send('user:getFollowers')
-    // });
-
-    // ipcRenderer.once('user:getFollowers', (e,data) => {
-    //     console.log('received......')
-    //     console.log(data)
-    // });
-
-    ipcRenderer.once('user:getKeys', (e,data) => {
-        console.log('received......')
-        console.log(data)
-        if(!data){
-          const keys= {
-            consumer_key: 'xxxxxx',
-            consumer_secret: 'xxxxxx',
-            access_token_key: 'xxxxxx-xxxxxx',
-            access_token_secret: 'xxxxxx'
-         }
-          ipcRenderer.send('user:setKeys',keys)
-          //ipcRenderer.send('user:syncFollowers')
-        }
-    });
-
-     ipcRenderer.once('user:setKeys', (e,data) => {
-       if(data){
-         ipcRenderer.send('user:syncFollowers')
-       }
-        
+function CampaignsPage() {
+  const history = useHistory();
+  const [campaigns,setCampaigns] = useState([]);
+  const [isLoading,setLoading] = useState(true);
+  useEffect(()=>{
+     API.getAllActiveCampaign().then((allCampaigns)=>{
+       setCampaigns(allCampaigns);
+       setLoading(false);
      });
+  },[]);
 
-    },[])
+  function editCampaign(campaign){
+    //TODO: This is not working correctly
+    history.push(routes.CREATECAMPAIGN+`/${campaign.id}`);
+  }
+
+  function deleteCampaign(id){
+    API.deleteCampaign(id);
+  }
+
   return (
     <>
-      {/* { showModal &&
-        <Dialog
-          className={``}
-          onClose={() => setShowModal(false)}
-          title="API Keys"
-          autoFocus={true}
-          canEscapeKeyClose={true}
-          canOutsideClickClose={true}
-          enforceFocus= {true}
-          isOpen={true}
-          usePortal= {true}
-        >
-          <APIKeys />
-        </Dialog>
-      } */}
-
-      <Campaign />
+     {!isLoading && <Campaign campaigns={campaigns} editCampaign={editCampaign} deleteCampaign={deleteCampaign}/> }
     </>
   );
 }
+
+export default CampaignsPage;

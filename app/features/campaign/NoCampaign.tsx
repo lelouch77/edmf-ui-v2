@@ -7,6 +7,7 @@ export default function NoCampaignFound() {
       <div className="w-1/2 mx-auto">
         <img src={EmailCampaignImage}/>
         <div className="text-center pb-5">
+          <p className="pb-8 text-xl font-bold">Get started!</p>
           <Link to={routes.CREATECAMPAIGN}>
             <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
               Create Campaign
