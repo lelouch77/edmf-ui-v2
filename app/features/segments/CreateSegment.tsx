@@ -28,8 +28,8 @@ const types: any = {
 		{ id: 'statuses_count', label: 'Tweets & Retweets', type: 'number', added: false }
 	],
 	joinCondition: [
-		{ id: 'AND', label: 'And' },
-		{ id: 'OR', label: 'Or' }
+		{ id: 'AND', label: 'AND' },
+		{ id: 'OR', label: 'OR' }
 	],
 	booleanOptions: [
 		{ id: 'true', label: 'Yes' },
@@ -97,7 +97,7 @@ export default () => {
 
 	return (
 		<div className="w-full">
-			<Header name="Campaigns"/>
+			<Header name="Segments"/>
 			<main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
 				<div className="flex flex-row-reverse justify-between items-center mb-5">
 					<Link to={routes.SEGMENTS}>
@@ -105,11 +105,11 @@ export default () => {
 							Save
 						</button>
 					</Link>
-					<div>Segments/Create</div>
+					<p className="text-gray-500">Segment <b>></b> Create Segment </p>
 				</div>
 				<div>
 					<div className="p-2">
-						<div className="">Filters</div>
+						<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Filters</div>
 						<div className="flex flex-col align-left p-5 border-solid border-2 border-gray-300">
 							{ filters.map((filter, index) => 
 								<FilterRow
