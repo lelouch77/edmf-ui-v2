@@ -16,15 +16,16 @@ const types: any = {
 		{ id: 'LTE', label: '<=' },
 	],
 	string: [
-		{ id: 'CONTAINS', label: 'contains' },
+		{ id: 'CONTAINS', label: 'Contains' },
 	],
 	columns: [
-		{ id: 'screen_name', label: 'Screen Name', type: 'string', added: false },
-		{ id: 'followers_count', label: 'Followers', type: 'number', added: false },
-		{ id: 'friends_count', label: 'Following', type: 'number', added: false },
+		{ id: 'followers_count', label: 'Followers Count', type: 'number', added: false },
+		{ id: 'description', label: 'Bio', type: 'string', added: false },
 		{ id: 'verified', label: 'Verified', type: 'boolean', added: false },
 		{ id: 'location', label: 'Location', type: 'string', added: false },
-		{ id: 'statuses_count', label: 'Tweets & Retweets', type: 'number', added: false }
+		{ id: 'statuses_count', label: 'Tweets & Retweets', type: 'number', added: false },
+		{ id: 'friends_count', label: 'Following Count', type: 'number', added: false },
+		{ id: 'screen_name', label: 'Screen Name', type: 'string', added: false }
 	],
 	joinCondition: [
 		{ id: 'AND', label: 'AND' },
