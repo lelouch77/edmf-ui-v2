@@ -77,11 +77,11 @@ const FollowersGrid = (props) => {
 	return (
           <>
                 {
-                    !props.hideRecordCount && (
-                            <div class="flex flex-row-reverse mb-2 text-gray-500" >
-                                    Showing {tableCount} records
-                            </div>
-                    )
+                   
+                    <div class="flex flex-row-reverse mb-2 text-gray-500" >
+                            Showing {tableCount} records
+                    </div>
+                   
                 }
                 <AgGridReact 
                     columnDefs={columnDefs}
