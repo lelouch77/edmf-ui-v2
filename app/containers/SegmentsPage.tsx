@@ -3,7 +3,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import CreateSegment from '../features/segments/CreateSegment'
 import routes from '../constants/routes.json'
 import Segments from '../features/segments/Segments'
-import { fetchSegments, createSegment } from '../features/segments/SegmentSlice'
+import { fetchSegments, createSegment, deleteSegment } from '../features/segments/SegmentSlice'
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -19,11 +19,13 @@ export default () => {
 
 	const handleCreateSegment = (newSegment: any) => dispatch(createSegment(newSegment))
 
+	const handleDeleteSegment = (id: any) => dispatch(deleteSegment(id))
+
 	return (
 		<>
 			<Router>
 				<Switch>
-					<Route path={`${routes.SEGMENTS}`} component={() => <Segments segments={segments} /> } exact={true} />
+					<Route path={`${routes.SEGMENTS}`} component={() => <Segments segments={segments} deleteSegment={handleDeleteSegment} /> } exact={true} />
 					<Route path={`${routes.SEGMENTS}/create`} component={() => <CreateSegment createSegment={handleCreateSegment} />} />
 				</Switch>
 			</Router>

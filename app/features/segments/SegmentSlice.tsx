@@ -58,5 +58,15 @@ const createSegment = (newSegment: any): AppThunk => async dispatch => {
 	}
 }
 
+const deleteSegment = (id: any): AppThunk => async dispatch => {
+	try {
+    dispatch(segments.actions.onStart())
+    await API.deleteSegment(id)
+		dispatch(fetchSegments())
+	} catch (err) {
+		dispatch(segments.actions.onError(err.toString()))
+	}
+}
+
 export default segments.reducer;
-export { fetchSegments, createSegment };
+export { fetchSegments, createSegment, deleteSegment };

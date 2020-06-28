@@ -2,18 +2,29 @@ import React from 'react'
 import Header from '../../containers/Header';
 import { AgGridReact } from 'ag-grid-react';
 import { Link } from 'react-router-dom'
+import CampainActionRenderert from '../../components/renderers/CampainActionRenderer'
 import routes from '../../constants/routes.json'
-
-const columnDefs = [
-	{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer' },
-	{ headerName: "Description", field: "description" },
-	{ headerName: "Created At", field: "createdAt" },
-	{ headerName: "Last Modified", field: "updatedAt" },
-]
 
 const defaultColDef = {  sortable: true }
 
-export default ({ segments, createSegment }: any) => {
+export default ({ segments, createSegment, deleteSegment }: any) => {
+
+	const columnDefs = [
+		{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer' },
+		{ headerName: "Description", field: "description" },
+		{ headerName: "Created At", field: "createdAt" },
+		{ headerName: "Last Modified", field: "updatedAt" },
+		{ 
+			headerName: "Action",cellRenderer: 'actionRenderer',
+			cellRendererParams: { 
+				onDelete: deleteSegment,
+				onEdit: (id) => console.log('Edit Campaign', id)
+			}
+		}
+	]
+
+	const frameworkComponents = { actionRenderer: CampainActionRenderert }
+
 	return (
 		<div className="w-full">
 			<Header name="Segments"/>
@@ -31,6 +42,7 @@ export default ({ segments, createSegment }: any) => {
 						columnDefs={columnDefs}
 						rowData={segments}
 						defaultColDef={defaultColDef}
+						frameworkComponents={frameworkComponents}
 					>
 					</AgGridReact>
 				</div>
