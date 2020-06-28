@@ -27,7 +27,7 @@ const { TextArea } = Input;
 const { TabPane } = Tabs;
 const { info  } = Modal;
 
-export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,activeTab }) {
+export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,activeTab,campaignStatus}) {
   const dispatch = useDispatch();
   const [name, setName] = useState(campaign.name);
   const [description, setDescription] = useState(campaign.description);
@@ -325,7 +325,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                    <>
                      <div className="flex flex-row-reverse">
                         <div className="w-1/4 text-right">
-                          <Statistic value={93} suffix="/ 100 sent" />
+                          <Statistic value={campaignStatus && campaignStatus.UNSENT} suffix={`/ ${campaignStatus && campaignStatus.TOTAL} sent`} />
                         </div>
                      </div> 
                        <CampaignUserGrid campaignId={campaign.id}/>
