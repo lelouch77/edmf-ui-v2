@@ -17,8 +17,8 @@ export default function ActionRenderer(props: Props) {
   }
 
   return (
-    <div class="flex">
-      <div class="mr-4">
+    <div className="flex">
+      <div className="mr-4">
        { campaign.status === 10 ?
         <Popconfirm
           title="Are you sure you want to pause this campaign?"

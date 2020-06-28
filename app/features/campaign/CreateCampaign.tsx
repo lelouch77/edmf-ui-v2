@@ -313,8 +313,8 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                  <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
                  {activeTabKey ==="3" && campaign.id && (
                    <>
-                     <div class="flex flex-row-reverse">
-                        <div class="w-1/4 text-right">
+                     <div className="flex flex-row-reverse">
+                        <div className="w-1/4 text-right">
                           <Statistic value={93} suffix="/ 100 sent" />
                         </div>
                      </div> 
