@@ -7,8 +7,12 @@ import { APIKeysModal, WelcomeScreen, ProfileScreenModal } from '../features/Int
 import Navbar from './Navbar';
 import API from '../api/easyDMAPI'
 import { Alert } from 'antd'
+import { useHistory } from "react-router-dom";
+import routes from 'constants/routes.json';
+import openNotification from 'components/common/Notification';
 
 const App = ({ children }: any) => {
+  const history = useHistory();
   const [error, setError] = useState('')
   const [page, setPage] = useState(1)
   const dispatch = useDispatch();
@@ -36,6 +40,12 @@ const App = ({ children }: any) => {
       }
     })
   }
+
+  function handleDone(){
+    setPage(0)
+    openNotification("Getting all your followers...")
+    history.push(routes.FOLLOWERS);
+  }
   
   return (
     <div className="bg-white h-full flex">
@@ -50,7 +60,7 @@ const App = ({ children }: any) => {
       }
       { (page == 3) &&
         <Modal key="Profile Modal" title="Jupiter Setup" visible footer={false} closable={false}>
-          <ProfileScreenModal user={settings} handleDone={() => setPage(0)} />
+          <ProfileScreenModal user={settings} handleDone={handleDone} />
         </Modal>
       }
     </div>
