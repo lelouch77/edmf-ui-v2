@@ -20,3 +20,7 @@
 .ag-cell-focus, .ag-cell {
     border: none !important;
 }
+
+.group:hover .group-hover\:block {
+display: block;
+}

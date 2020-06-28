@@ -27,7 +27,7 @@ const { TextArea } = Input;
 const { TabPane } = Tabs;
 const { info  } = Modal;
 
-export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,activeTab }) {
+export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,activeTab,campaignStatus}) {
   const dispatch = useDispatch();
   const [name, setName] = useState(campaign.name);
   const [description, setDescription] = useState(campaign.description);
@@ -228,6 +228,9 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                         >
                           Recipients
                         </label>
+                        <div className="py-2">
+                          <Checkbox disabled ={campaign.id} onChange={(e: any) => {setSendToAllFollowers(e.target.checked);setRecipients([]);}}>Send to all followers</Checkbox>
+                        </div>
                         <Select
                           mode="multiple"
                           style={{ width: "100%" }}
@@ -241,18 +244,14 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                             <Option
                               key={segment.id}
                               value={segment.id}
-                              label={segment.name}
+                              label={`${segment.name} (${segment.count} Users)`}
                             >
                               <div className="demo-option-label-item">
-                                {segment.name}
+                                {`${segment.name} (${segment.count} Users)`}
                               </div>
                             </Option>
                           ))}
                         </Select>
-                        <p className="py-1 mt-1">OR</p>
-                        <div>
-                        <Checkbox disabled = {campaign.id} onChange={(e: any) => {setSendToAllFollowers(e.target.checked);setRecipients([]);}}>Send to all followers</Checkbox>
-                        </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-2 mt-8">
@@ -323,7 +322,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                    <>
                      <div className="flex flex-row-reverse">
                         <div className="w-1/4 text-right">
-                          <Statistic value={93} suffix="/ 100 sent" />
+                          <Statistic value={campaignStatus && campaignStatus.UNSENT} suffix={`/ ${campaignStatus && campaignStatus.TOTAL} sent`} />
                         </div>
                      </div> 
                        <CampaignUserGrid campaignId={campaign.id}/>

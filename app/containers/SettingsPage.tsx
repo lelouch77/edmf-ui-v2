@@ -14,7 +14,7 @@ const SettingsPage = () => {
       title:"Danger Zone",
       content:(
         <div class="text-base">
-          <p>If you're using API keys of a different user,there is no going back.</p><p>This will delete all the data.Please be sure.</p>
+          <p>If you're using the API keys of a different user,there is no going back.</p><p>This will delete all the data.Please be sure.</p>
         </div>
       ),
       onOk:()=>{

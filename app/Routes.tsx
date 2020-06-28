@@ -9,6 +9,7 @@ import EditCampaignPage from './containers/EditCampaignPage';
 import SettingsPage from './containers/SettingsPage';
 import FollowersPage from './containers/FollowersPage';
 import SegmentsPage from './containers/SegmentsPage';
+import DashboardPage from './containers/DashboardPage';
 
 // const LazyCampaignsPage = React.lazy(() =>
 //   import(/* webpackChunkName: "CampaignsPage" */ './containers/CampaignsPage')
@@ -25,7 +26,7 @@ export default function Routes() {
     <App>
       <Router>
         <Switch>
-          <Route path={routes.HOME} component={CampaignsPage} exact={true} />
+          <Route path={routes.HOME} component={DashboardPage} exact={true} />
           <Route path={routes.CAMPAIGNS} component={CampaignsPage} />
           <Route path={routes.CREATECAMPAIGN} component={CreateCampaignPageWithRouter} />
           <Route path={routes.SEGMENTS} component={SegmentsPage} />
