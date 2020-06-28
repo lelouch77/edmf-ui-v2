@@ -37,11 +37,11 @@
 
 ## 🎉 Introduction
 
-**Jupiter GUI (EasyDMFollowers-UI)** is a native application built using electron for Windows and MacOS. Jupiter GUI is powered by the Open-Source **Jupiter Core (EasyDMFollowers)** library which is a published NPM package. More details on Jupiter Core can be found [here](https://github.com/vbisrikkanth/easydmfollowers).
+**Jupiter GUI (EasyDMFollowers-UI)** is an electron application built for both Windows and MacOS. This application primarily fetches a list of your followers and provides features to send Mass DMs to them.
 
 ## 💡 Background
 
-The inspiration for this library came from the bounty contest [here](https://github.com/balajis/twitter-export) hosted by [@balajiS](https://twitter.com/balajis/status/1272199847324471298?s=08). We built this library to submit our entry to the bounty contest.
+The inspiration for this application came from the bounty contest [here](https://github.com/balajis/twitter-export) hosted by [@balajiS](https://twitter.com/balajis/status/1272199847324471298?s=08). We built this library to submit our entry to the bounty contest.
 
 ## 🧱 Architecture
 
@@ -49,24 +49,19 @@ The inspiration for this library came from the bounty contest [here](https://git
 
 A decoupled architecture where we have an adapter for a given social media platform (Twitter) and connection to external databases through Sequelize ORM enables us to have flexibility with the DB engine used.
 
-**Benefits of this Architecture:**
-
-- Any database supported by Sequelize can be used
-- Adapters for other social media platforms can be easily developed
-- This library shared as an NPM package can be imported to build a native Windows/MacOS app or can be extended into a server with Express or Hapi to be further used by front-end webapps built on React, Angular, etc.
-
 ## 💎 Features
 
 Jupiter GUI comes packed with the following features:
 
-- [x] Fetch followers from Twitter (75000 followers/15 minutes)
-- [x] Create Segments(lists) of followers based on filter criteria (Filter followers with >= 5000 followers or >= 200 tweets)
-- [x] Segments can have multiple `AND` or `OR` based filters
-- [x] Create (Mass DM) Campaigns on selected segments with ranking by followers count, friends count, tweets and retweets.
-- [x] Set weights (Number of messages to be sent in a day) for each campaign
-- [x] Schedule your campaign to send MassDMs at a specific time everyday
-- [x] Send test DMs to upto 5 users from the campaign settings before the campaign kicks off
-- [x] Track statistics like number of DMs sent from the app dashboard
+- [x] Fetch **Followers** from Twitter (75000 followers/15 minutes)
+- [x] Create **Segments**(lists) of followers based on filter criteria (Filter followers with >= 5000 followers or >= 200 tweets)
+- [x] **Segments** can have multiple `AND` or `OR` based filters
+- [x] Create (Mass DM) **Campaigns** on selected segments with ranking by followers count, friends count, tweets and retweets.
+- [x] Set weights (Number of messages to be sent in a day) for each Campaign
+- [x] Schedule your Campaign to send MassDMs at a specific time everyday
+- [x] Pause and Resume Campaigns
+- [x] Send test DMs to upto 5 users from the Campaign settings before the Campaign kicks off
+- [x] Track statistics like number of DMs sent from the app Dashboard
 
 ## ⚙️ Usage
 
