@@ -53,6 +53,7 @@ export default (props: Props) => {
               <Link
                 to={route}
                 title={label}
+                key={label}
                 onClick={() => setActiveState(route)}
                 className={`h-20 px-3 flex flex-col items-center justify-center hover:text-white w-full cursor-pointer ${ isActive ? 'text-white bg-indigo-800' : '' }`}
               >

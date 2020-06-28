@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Header from '../../containers/Header';
 
 const Settings = ({ 
@@ -7,15 +7,22 @@ const Settings = ({
     access_token_secret,
     consumer_key,
     consumer_secret
-  }
-}: any) => (
+  },
+  handleSaveKeys
+}: any) => {
+  const [accessTokenKey, setAccessTokenKey] = useState(access_token_key)
+	const [accessTokenSecret, setAccessTokenSecret] = useState(access_token_secret)
+	const [consumerKey, setConsumerkey] = useState(consumer_key)
+	const [consumerSecret, setConsumerSecret] = useState(consumer_secret)
+
+  return (
   <div className="w-full">
     <Header name="Settings"/>
     <main>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="h-100">
           <div className="flex flex-row-reverse mb-2">
-            <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
+            <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded" onClick={() => handleSaveKeys({ accessTokenKey, accessTokenSecret, consumerKey, consumerSecret })}>
               Save
             </button>
           </div>
@@ -28,13 +35,13 @@ const Settings = ({
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                   API Key
                 </label>
-                <input value={ consumer_key } className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder=""/>      
+                <input value={ consumerKey } onChange={(e: any) => setConsumerkey(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder=""/>      
               </div>
               <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
                   API Secret
                 </label>
-                <input value = { consumer_secret } className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""/>
+                <input value = { consumerSecret } onChange={(e: any) => setConsumerSecret(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""/>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -43,13 +50,13 @@ const Settings = ({
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                   Access token
                 </label>
-                <input value={access_token_key} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder=""/>    
+                <input value={accessTokenKey} onChange={(e: any) => setAccessTokenKey(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"  type="text" placeholder=""/>    
               </div>
               <div className="w-full px-3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="description">
                 Access token secret
                 </label>
-                <input value={ access_token_secret } className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""/>
+                <input value={ accessTokenSecret } onChange={(e: any) => setAccessTokenSecret(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""/>
               </div>
             </div>
           </form>
@@ -57,6 +64,6 @@ const Settings = ({
       </div>
     </main>
   </div>
-);
+)};
 
 export default Settings;

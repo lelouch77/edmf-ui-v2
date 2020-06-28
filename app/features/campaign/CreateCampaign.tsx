@@ -108,7 +108,9 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
     const transformedSortCondition = [transformedFilter.map((sortBy)=>{
 						return sortBy && [sortBy.id,sortBy.operator.toUpperCase()]
 			})];
-    setRankBy(transformedSortCondition);
+    if(transformedSortCondition.length>0){
+      setRankBy(transformedSortCondition);
+    }
   }
 
   return (
@@ -212,7 +214,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                           rows={6}
                           defaultValue={message}
                           onChange={(e: any) => setMessage(e.target.value)}
-                          placeholder="Personalize the DMs that you send by using the template [screen_name]"
+                          placeholder="Personalize the DMs that you send by using the template [user_name]"
                         />
                         {message.length < 10000 && (
                           <span className="text-gray-600 text-xs pt-2">

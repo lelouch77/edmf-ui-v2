@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Followers from '../features/followers/Followers'
-import { getFollowers } from '../api/easyDMAPI'
+import Followers from '../features/followers/Followers';
 
 const FollowersPage = () => {
 	return <Followers/>;
