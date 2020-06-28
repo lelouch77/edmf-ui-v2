@@ -50,12 +50,12 @@ const FilterRow = ({ sortBy, sortOrder,  setSortBy, setSortOrder }: any) => {
 
 
 const CampaignPreview = ({ segmentIds ,onRankBySelection, rankBy}: any) => {
-	const [sortBy, setSortBy] = useState(rankBy[0])
-	const [sortOrder, setSortOrder] = useState(rankBy[1])
+	const [sortBy, setSortBy] = useState(rankBy[0][0])
+	const [sortOrder, setSortOrder] = useState(rankBy[0][1])
 	
 	useEffect(() => {
 		onRankBySelection([[sortBy,sortOrder]]);
-	}, [sortOrder,sortBy])
+	}, [sortBy,sortOrder])
 
 	return (
 		<div>

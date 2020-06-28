@@ -68,8 +68,8 @@ function handleEditCampaign(campaign){
   return (
       <div className="w-full">
         <Header name="Campaigns"/>
-        <main>
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <main style={{ height: 'calc(100% - 4rem)', width: '100%' }}>
+          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8"style={{height: "100%"}} >
             {campaigns && campaigns.length > 0?
             ( 
               <>
@@ -80,7 +80,7 @@ function handleEditCampaign(campaign){
                   </button>
                 </Link>
               </div>
-              <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 15rem)', width: '100%' }}>
+              <div className="ag-theme-alpine" style={{ height: 'calc(100% - 3rem)', width: '100%' }}>
                     <AgGridReact 
                       columnDefs={columnDefs}
                       defaultColDef={defaultColDef}

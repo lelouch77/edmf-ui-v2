@@ -12,6 +12,7 @@ function EditCampaignPage(props) {
   const activeTabKey = props.location.hash === "#status"?"3":"1"
   const history = useHistory();
   const [campaign,setCampaign] = useState(null);
+  const [campaignStatus, setCampaignStatus] = useState(null);
 
   //Fetch this from API
   const [allSegments, setAllSegments]=  useState([]);
@@ -22,6 +23,9 @@ function EditCampaignPage(props) {
         setCampaign(campaign);
         setAllSegments(campaign.metadata.segments  || []);
     });
+    API.getCampaignStatus({id}).then((res)=>{
+      setCampaignStatus(res);
+  });
   },[]);
 
   async function handleSubmit(newCampaign){
@@ -38,7 +42,7 @@ function EditCampaignPage(props) {
 
   return  (
     <>
-     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM} activeTab={activeTabKey} /> }
+     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM} activeTab={activeTabKey} campaignStatus={campaignStatus} /> }
     </>
   );
 }

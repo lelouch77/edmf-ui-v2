@@ -43,7 +43,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   const [isTestDMModalVisible,setTestDMModalVisible ] = useState(false);
   const [testDMScreenNames,setTestDMScreenNames ] = useState("");
   const [sendToAllFollowers,setSendToAllFollowers] = useState(false);
-  const [rankBy,setRankBy] = useState(["followers_count","DESC"]);
+  const [rankBy,setRankBy] = useState([["followers_count","DESC"]]);
 
   function handleRecipientChange(segmentIds) {
     setRecipients(segmentIds);
@@ -317,7 +317,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
               {
                 campaign.id ? 
                 (<TabPane tab="Status" key="3">
-                 <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+                 <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 17rem)', width: '100%' }}>
                  {activeTabKey ==="3" && campaign.id && (
                    <>
                      <div className="flex flex-row-reverse">

@@ -19,10 +19,14 @@ function CreateCampaignPage(props) {
     scheduled_time:null
   }
   const [allSegments, setAllSegments]=  useState([]);
+  const [campaignStatus, setCampaignStatus]=  useState();
 
   useEffect(()=>{
     API.getSegments().then((segments)=>{
       setAllSegments(segments);
+    });
+    API.getSegments().then((segments)=>{
+      setCampaignStatus(segments);
     });
   },[]);
 

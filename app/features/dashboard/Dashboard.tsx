@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../containers/Header';
 import { Statistic } from 'antd';
 
-const Dashboard = ({settings}) => {
+const Dashboard = ({settings, messagesSent, campaigns}) => {
 	return (
 		<div className="w-full">
 			<Header name='Dashboard' />
@@ -14,10 +14,10 @@ const Dashboard = ({settings}) => {
                     <div className="flex flex-col w-full py-4">
                       <div class="flex">
                             <div className="mr-4 border-r pr-10">
-                                 <Statistic title="Messages Sent today" value={900} />
+                                 <Statistic title="Messages Sent today" value={messagesSent} />
                             </div>
                             <div className="">
-                                <Statistic title="Active Campaigns" value={2} />
+                                <Statistic title="Active Campaigns" value={campaigns} />
                             </div>
                       </div>
                     </div>
