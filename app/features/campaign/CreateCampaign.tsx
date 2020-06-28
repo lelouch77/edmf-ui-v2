@@ -247,10 +247,10 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                             <Option
                               key={segment.id}
                               value={segment.id}
-                              label={segment.name}
+                              label={`${segment.name} (${segment.count} Users)`}
                             >
                               <div className="demo-option-label-item">
-                                {segment.name}
+                                {`${segment.name} (${segment.count} Users)`}
                               </div>
                             </Option>
                           ))}

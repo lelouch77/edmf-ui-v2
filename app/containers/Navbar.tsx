@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes.json';
-import { UserOutlined, InboxOutlined, GroupOutlined, SettingOutlined, CloseOutlined } from '@ant-design/icons'
+import { UserOutlined, InboxOutlined, GroupOutlined, SettingOutlined, CloseOutlined,HomeOutlined,NotificationOutlined } from '@ant-design/icons'
 import { PlanetIcon } from '../assets/svg'
 export default (props: Props) => {
   const [activeState, setActiveState] = useState('')
@@ -19,17 +19,17 @@ export default (props: Props) => {
   const navOptions = [
     {
       label: 'Dashboard',
-      icon: InboxOutlined,
-      route: routes.HOME,
+      icon: HomeOutlined ,
+      route: routes.HOME
     },
     {
       label: 'Campaigns',
-      icon: InboxOutlined,
+      icon: NotificationOutlined,
       route: routes.CAMPAIGNS,
     },
     {
       label: 'Segments',
-      icon: GroupOutlined,
+      icon: InboxOutlined,
       route: routes.SEGMENTS
     },
     {
