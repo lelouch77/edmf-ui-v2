@@ -20,7 +20,7 @@ function CampaignsPage() {
   },[]);
 
   async function editCampaign(campaign){
-    history.push(routes.EDITCAMPAIGN+`/${campaign.id}`);
+    history.push(routes.EDITCAMPAIGN+`/${campaign.id}#status`);
   }
 
   function deleteCampaign(id){

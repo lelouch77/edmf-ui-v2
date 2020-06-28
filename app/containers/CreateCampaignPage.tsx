@@ -38,7 +38,7 @@ function CreateCampaignPage(props) {
     API.sendDM(testDM);
     openNotification("Test Message has been sent successfully");
   }
-  return <CreateCampaign campaign={newCampaign} segments={allSegments}  onSubmit={handleSubmit} onTestDM={handleTestDM} />;
+  return <CreateCampaign campaign={newCampaign} segments={allSegments}  onSubmit={handleSubmit} onTestDM={handleTestDM} activeTab={"1"} />;
 }
 
 const CreateCampaignPageWithRouter = withRouter(CreateCampaignPage)

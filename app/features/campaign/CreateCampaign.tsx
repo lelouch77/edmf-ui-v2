@@ -14,7 +14,8 @@ import {
   Tabs,
   Modal,
   Progress,
-  Statistic
+  Statistic,
+  Checkbox
 } from "antd";
 import moment from "moment";
 import { CheckOutlined ,TwitterOutlined} from '@ant-design/icons';
@@ -26,7 +27,7 @@ const { TextArea } = Input;
 const { TabPane } = Tabs;
 const { info  } = Modal;
 
-export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }) {
+export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,activeTab }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(campaign.name);
   const [description, setDescription] = useState(campaign.description);
@@ -38,9 +39,10 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
   const [messagesPerDay, setMessagesPerDay] = useState(
     campaign.allocated_msg_count
   );
-  const [activeTabKey, setActiveTabKey] = useState("1");
+  const [activeTabKey, setActiveTabKey] = useState(activeTab);
   const [isTestDMModalVisible,setTestDMModalVisible ] = useState(false);
   const [testDMScreenNames,setTestDMScreenNames ] = useState("");
+  const [sendToAllFollowers,setSendToAllFollowers] = useState(false);
 
   function handleRecipientChange(segmentIds) {
     setRecipients(segmentIds);
@@ -95,6 +97,11 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
     setTestDMModalVisible(false);
   };
 
+  function isValidCampaign(){
+    //Check if the name,description and message are provided
+    return message.length > 0 && name.length > 0 && (sendToAllFollowers || recipients.length >0);
+  }
+
   return (
     <div className="w-full">
         <Modal
@@ -127,13 +134,13 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
             </p>
             <div className="flex flex-row-reverse">
                 <button
-                className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded"
-                onClick={handleSubmit}
+                className={`mr-3 ${!isValidCampaign()?"bg-indigo-500 text-white opacity-50 cursor-not-allowed":"bg-indigo-700 hover:bg-indigo-500 text-white " } font-bold py-2 px-4 rounded`}
+                onClick={handleSubmit} disabled={!isValidCampaign()}
               >
                 Save
               </button>
-                <button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded mr-3" 
-                 onClick={sendTestDM} disabled={message.length===0}>
+                <button className={`mr-3 ${!isValidCampaign()?"bg-indigo-500 text-white opacity-50 cursor-not-allowed":"bg-indigo-700 hover:bg-indigo-500 text-white " } font-bold py-2 px-4 rounded`}
+                 onClick={sendTestDM} disabled={!isValidCampaign()}>
                   Test
                 </button>
               <Link to={routes.CAMPAIGNS}>
@@ -147,6 +154,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
             <Tabs
               defaultActiveKey={activeTabKey}
               onChange={onTabChange}
+              animated={false}
             >
               <TabPane tab="Configuration" key="1">
                 <div>
@@ -195,6 +203,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
                           rows={6}
                           defaultValue={message}
                           onChange={(e: any) => setMessage(e.target.value)}
+                          placeholder="Personalize the DMs that you send by using the template [screen_name]"
                         />
                         {message.length < 10000 && (
                           <span className="text-gray-600 text-xs pt-2">
@@ -218,7 +227,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
                           onChange={handleRecipientChange}
                           optionLabelProp="label"
                           defaultValue= {recipients}
-                          disabled = {campaign.id}
+                          disabled = {campaign.id || sendToAllFollowers}
                         >
                           {segments.map((segment) => (
                             <Option
@@ -232,6 +241,10 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
                             </Option>
                           ))}
                         </Select>
+                        <p className="py-1 mt-1">OR</p>
+                        <div>
+                        <Checkbox disabled = {campaign.id} onChange={(e: any) => {setSendToAllFollowers(e.target.checked);setRecipients([]);}}>Send to all followers</Checkbox>
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-2 mt-8">
