@@ -3,7 +3,6 @@ import CreateCampaign from '../features/campaign/CreateCampaign';
 import API from '../api/easyDMAPI'
 import { useHistory } from "react-router-dom";
 import routes from '../constants/routes.json';
-import {notification } from 'antd';
 import openNotification from '../components/common/Notification';
 import { useParams } from "react-router";
 
@@ -13,21 +12,15 @@ function EditCampaignPage(props) {
   const activeTabKey = props.location.hash === "#status"?"3":"1"
   const history = useHistory();
   const [campaign,setCampaign] = useState(null);
-  const [campaignStatus,setCampaignStatus] = useState(null);
 
   //Fetch this from API
   const [allSegments, setAllSegments]=  useState([]);
   
   useEffect(()=>{
     API.getCampaign(id).then((campaign)=>{
-        campaign.segmentIds = campaign.metadata.segments.map((segment)=>segment.id);
+        campaign.segmentIds = campaign.metadata.segments ? campaign.metadata.segments.map((segment)=>segment.id) : [];
         setCampaign(campaign);
-    });
-    API.getCampaignStatus({id}).then((campaignStatus)=>{
-        setCampaignStatus(campaignStatus);
-    });
-    API.getSegments().then((segments)=>{
-      setAllSegments(segments);
+        setAllSegments(campaign.metadata.segments  || []);
     });
   },[]);
 
@@ -45,7 +38,7 @@ function EditCampaignPage(props) {
 
   return  (
     <>
-     {campaign && campaignStatus && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM} activeTab={activeTabKey} campaignStatus={campaignStatus}/> }
+     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM} activeTab={activeTabKey} /> }
     </>
   );
 }

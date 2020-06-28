@@ -26,7 +26,7 @@ const App = ({ children }: any) => {
       consumer_key: consumerKey,
       consumer_secret: consumerSecret
     }).then((userObject: any) => {
-      if(userObject){
+      if(!userObject.error){
         setError('')
         console.log(userObject)
         setSettings(userObject)

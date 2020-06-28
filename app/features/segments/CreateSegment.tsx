@@ -4,9 +4,7 @@ import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json'
 import { Input, Select, Button, InputNumber } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import FollowersGrid from '../followers/FollowersGrid'
-import API from '../../api/easyDMAPI';
-
+import FollowersGrid from '../followers/FollowersGrid';
 const { Option } = Select;
 
 const types: any = {
@@ -140,33 +138,47 @@ const FilterRow = ({ index = 0, filter, deleteFilter, joinCondition, setJoinCond
 	)
 }
 
-export default ({ createSegment }: any) => {
-	const [joinCondition, setJoinCondition] = useState(types.joinCondition[0].id)
-	const [filters, setFilters] = useState([])
+export default ({ createSegment, updateSegment, data }: any) => {
+	const [joinCondition, setJoinCondition] = useState(data ? data.filters.filterType : types.joinCondition[0].id)
+	const [filters, setFilters] = useState(data ? data.filters.conditions : [])
 	const createFilterRow = () => setFilters([...filters, {}])
 	const updateFilter = (id, updatedFilter) => setFilters(filters.map((filter, idx) => idx == id ? updatedFilter : filter ))
 	const [transformedFilter, setTransformedFilter] = useState({})
-	const [segmentName, setSegmentName] = useState('')
+	const [segmentName, setSegmentName] = useState(data ? data.name : '')
+	const [segmentDescription, setSegmentDescription] = useState(data ? data.description : '')
 	
 	useEffect(() => {
 		// console.log(filters.filter((item: any) => item.id && item.operator && item.value))
-		console.log({
+		const newFilter = {
 			filterType: joinCondition,
 			conditions: filters.filter((item: any) => item.id && item.operator && item.value)
-		})
-		setTransformedFilter({
-			filterType: joinCondition,
-			conditions: filters.filter((item: any) => item.id && item.operator && item.value)
-		})
+		}
+		if(JSON.stringify(newFilter) !== JSON.stringify(transformedFilter)){
+			setTransformedFilter(newFilter);
+		}
 	}, [filters])
 
+	useEffect(() => {
+		console.log("transformedFilter",transformedFilter);
+	},[transformedFilter])
 	const handleSaveSegment = () => {
 		console.log('handleCreateSegment called', createSegment)
 		createSegment({	
 			name: segmentName,
-			description: '',
+			description: segmentDescription,
 			filters: transformedFilter
 		})
+	}
+
+	const handleUpdateSegment = () => {
+		updateSegment(
+			data.id,
+			{
+				name: segmentName,
+				description: segmentDescription,
+				filters: transformedFilter
+			}
+		)
 	}
 
 	return (
@@ -174,19 +186,31 @@ export default ({ createSegment }: any) => {
 			<Header name="Segments"/>
 			<main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
 				<div className="flex flex-row-reverse justify-between items-center mb-5">
-					<Link to={routes.SEGMENTS}>
-						<button 
-							onClick={handleSaveSegment}
-							className={`${
-								!segmentName?
-									"bg-indigo-500 text-white opacity-50 cursor-not-allowed":
-									"bg-indigo-700 hover:bg-indigo-500 text-white " } font-bold py-2 px-4 rounded`}
-							disabled={!segmentName}
-						>
-							Save
-						</button>
-					</Link>
-					<p className="text-gray-500">Segment <b>></b> Create Segment </p>
+					<div>
+						<Link to={routes.SEGMENTS} className="mr-3">
+							<button 
+								className="bg-gray-100-200 hover:bg-gray-100  font-bold py-2 px-4 rounded border"
+							>
+								Cancel
+							</button>
+						</Link>
+						<Link to={routes.SEGMENTS}>
+							<button 
+								onClick={data ? handleUpdateSegment : handleSaveSegment}
+								className={`${
+									!segmentName?
+										"bg-indigo-500 text-white opacity-50 cursor-not-allowed":
+										"bg-indigo-700 hover:bg-indigo-500 text-white " } font-bold py-2 px-4 rounded`}
+								disabled={!segmentName}
+							>
+								{ data ? 'Update' : 'Save' }
+							</button>
+						</Link>
+					</div>
+					{ !data ?
+						<p className="text-gray-500">Segment <b>{">"}</b> Create Segment</p> :
+						<p className="text-gray-500">Segment <b>{">"}</b> Edit Segment <b>{">"}</b> { data.name } </p>
+					}
 				</div>
 				<div>
 					<div className="max-w-lg mb-6 md:mb-0">
@@ -202,6 +226,21 @@ export default ({ createSegment }: any) => {
 							placeholder="Name of the segmant"
 							value={segmentName}
 							onChange={(e: any) => setSegmentName(e.target.value)}
+						/>
+					</div>
+					<div className="max-w-lg mb-6 md:mb-0">
+						<label
+							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							htmlFor="name"
+						>
+							Description
+						</label>
+						<input
+							className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+							type="text"
+							placeholder="Name of the segmant"
+							value={segmentDescription}
+							onChange={(e: any) => setSegmentDescription(e.target.value)}
 						/>
 					</div>
 					<div className="">
@@ -224,7 +263,7 @@ export default ({ createSegment }: any) => {
 						</div>
 					</div>
 				</div>
-				<div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+				<div className="ag-theme-alpine" style={{ height: 'calc(100vh - 500px)', width: '100%' }}>
 					<FollowersGrid where={transformedFilter} />
 				</div>
 			</main>
