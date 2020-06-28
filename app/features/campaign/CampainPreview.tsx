@@ -49,9 +49,9 @@ const FilterRow = ({ sortBy, sortOrder,  setSortBy, setSortOrder }: any) => {
 }
 
 
-const CampaignPreview = ({ segmentIds ,onRankBySelection}: any) => {
-	const [sortBy, setSortBy] = useState("followers_count")
-	const [sortOrder, setSortOrder] = useState("DESC")
+const CampaignPreview = ({ segmentIds ,onRankBySelection, rankBy}: any) => {
+	const [sortBy, setSortBy] = useState(rankBy[0])
+	const [sortOrder, setSortOrder] = useState(rankBy[1])
 	
 	useEffect(() => {
 		onRankBySelection([[sortBy,sortOrder]]);
