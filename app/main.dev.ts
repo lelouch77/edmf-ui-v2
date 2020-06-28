@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import EasyDMCore from 'edmf-core';
+import PUBLIC_METHODS from 'edmf-core/dist/export.details';
 
 export default class AppUpdater {
   constructor() {
@@ -119,107 +120,22 @@ app.on('activate', () => {
   if (mainWindow === null) createWindow();
 });
 
-// EasyDMCore.publicMethods.forEach((functionName: string) => {
-//   exports[functionName] = (...args: Array<any>) => new Promise((resolve) => {
-//     easyDMCore[functionName](...args).then((res: any) => resolve(res))
-//   })
-// })
-// exports.TwitterAdapterApi = (functionName: string, params: Array<any>) => {
-//   return new Promise((resolve: any) => {
-//     easyDMCore.TwitterAdapter[functionName](...params)
-//       .then((res: any) => resolve(res))
-//   })
-// }
-
-// exports.setkeys = (
-//   consumerKey: string,
-//   consumerSecret: string,
-//   acccessTokenKey: string, 
-//   accessTokenSecret: string
-// ) => {
-//   return new Promise((resolve: any) => {
-//     resolve(
-      // easyDMCore.TwitterAdapter.setTwitterKeys({
-      //   consumer_key: consumerKey,
-      //   consumer_secret: consumerSecret,
-      //   access_token_key: acccessTokenKey,
-      //   access_token_secret: accessTokenSecret
-      // })
-//     )
-//   })
-// }
-
-// exports.getUserObject = () => {
-//   return new Promise((resolve: any) => {
-//     easyDMCore.getUserObject()
-//       .then((res: any) => resolve(res))
-//   })
-// }
-
-// exports.setkeys = (...args: any) => {
-//   return new Promise((resolve: any) => {
-//     easyDMCore.setkeys(...args)
-//       .then((res: any) => resolve(res))
-//   })
-// }
-
-// const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
-// easyDMCore.getUserObject().then(value => console.log('========', value))
 
 const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
 
-ipcMain.on('user:getKeys', () => {
-  easyDMCore.getUserObject()
-    .then(res => {
-      console.log(res);
-      (mainWindow as any).webContents.send('user:getKeys', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:getKeys', err);
-    })
-})
 
+const eventListenerGenerator = (path: string) => {
+  ipcMain.on(path, (event: any, ...args: any[]) => {
+    easyDMCore[path](...args)
+      .then(res => {
+        (mainWindow as any).webContents.send(path, res);
+      })
+      .catch(err => {
+        (mainWindow as any).webContents.send(path, {error:err});
+      })
+  })
+}
 
-ipcMain.on('user:setKeys', (e,keys) => {
-  console.log(keys);
-  easyDMCore.setKeys(keys)
-    .then(res => {
-      console.log(res);
-      (mainWindow as any).webContents.send('user:setKeys', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:setKeys', err);
-    })
-})
-
-// exports.getUsers = () => {
-//   return new Promise((resolve: any) => {
-//     easyDMCore.getUsersPaginated({})
-//       .then((res: any) => resolve(res))
-//   })
-// }
-
-
-ipcMain.on('user:getFollowers', () => {
-  easyDMCore.getFollowers()
-    .then(res => {
-      (mainWindow as any).webContents.send('user:getFollowers', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:getFollowers', err);
-    })
-})
-
-ipcMain.on('user:syncFollowers', () => {
-  easyDMCore.syncFollowers(true)
-    .then(res => {
-      console.log(res);
-      (mainWindow as any).webContents.send('user:syncFollowers', res);
-    })
-    .catch(err => {
-      (mainWindow as any).webContents.send('user:syncFollowers', err);
-    })
-})
-
-
-
+PUBLIC_METHODS.forEach(path => {
+  eventListenerGenerator(path)
+});

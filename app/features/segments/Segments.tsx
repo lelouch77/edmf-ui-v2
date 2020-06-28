@@ -24,7 +24,7 @@ export default ({ segments, createSegment }: any) => {
 							Create Segment
 						</button>
 					</Link>
-					<div>Route</div>
+					<p className="text-gray-500">Segments</p>
 				</div>
 				<div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
 					<AgGridReact 
