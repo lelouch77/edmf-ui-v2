@@ -5,7 +5,6 @@ import routes from '../../constants/routes.json'
 import { Input, Select, Button, InputNumber } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import FollowersGrid from '../followers/FollowersGrid'
-import { utimes } from 'fs';
 
 const { Option } = Select;
 

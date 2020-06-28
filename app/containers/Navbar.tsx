@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes.json';
 import { UserOutlined, InboxOutlined, GroupOutlined, SettingOutlined, CloseOutlined } from '@ant-design/icons'
-
+import { PlanetIcon } from '../assets/svg'
 export default (props: Props) => {
   const [activeState, setActiveState] = useState('')
   
@@ -42,7 +42,7 @@ export default (props: Props) => {
   return (
     <nav aria-label="side bar" aria-orientation="vertical" className="flex-none flex flex-col items-center text-center bg-indigo-700 text-gray-400 border-r min-h-screen">
       <div className="h-16 flex items-center w-full flex align-center justify-center">
-        <CloseOutlined style={{ fontSize: 28 }} />
+        <PlanetIcon />
       </div>
       <ul>
         { navOptions.map(nav => {
