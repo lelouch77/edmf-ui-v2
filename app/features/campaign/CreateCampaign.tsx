@@ -43,7 +43,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   const [isTestDMModalVisible,setTestDMModalVisible ] = useState(false);
   const [testDMScreenNames,setTestDMScreenNames ] = useState("");
   const [sendToAllFollowers,setSendToAllFollowers] = useState(false);
-  const [rankBy,setRankBy] = useState([]);
+  const [rankBy,setRankBy] = useState(["followers_count","DESC"]);
 
   function handleRecipientChange(segmentIds) {
     setRecipients(segmentIds);
@@ -334,7 +334,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
               </TabPane>):(
               <TabPane tab="Review" disabled={!isValidCampaign()} key="2">
                 {activeTabKey ==="2" && (
-                  <CampaignPreview segmentIds={recipients} onRankBySelection={onRankBySelection} />
+                  <CampaignPreview segmentIds={recipients} onRankBySelection={onRankBySelection} rankBy={rankBy}/>
                 )}
                </TabPane>
                )

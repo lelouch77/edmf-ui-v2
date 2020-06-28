@@ -80,7 +80,7 @@ function handleEditCampaign(campaign){
                   </button>
                 </Link>
               </div>
-              <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 170px)', width: '100%' }}>
+              <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 15rem)', width: '100%' }}>
                     <AgGridReact 
                       columnDefs={columnDefs}
                       defaultColDef={defaultColDef}

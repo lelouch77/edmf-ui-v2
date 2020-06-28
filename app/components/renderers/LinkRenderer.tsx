@@ -8,6 +8,6 @@ export default function LinkRenderer(props: Props) {
     }
 
    return (
-     <a href="#" onClick={onClick}>{props.value}</a>
+     <a href="#" onClick={onClick} style={{color : "#1890ff", textDecoration:"underline"}}>{props.value}</a>
   );
 }
