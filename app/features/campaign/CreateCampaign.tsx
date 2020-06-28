@@ -18,7 +18,7 @@ import {
 } from "antd";
 import moment from "moment";
 import { CheckOutlined ,TwitterOutlined} from '@ant-design/icons';
-import FollowersGrid from '../followers/FollowersGrid'
+import CampaignPreview from './CampainPreview'
 import CampaignUserGrid from './CampaignUserGrid'
 
 const { Option } = Select;
@@ -312,13 +312,9 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM }
                 </div>
               </TabPane>):(
               <TabPane tab="Review" disabled={false} key="2">
-                   {activeTabKey ==="2" && (
-
-                    <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
-                         <FollowersGrid segmentIds={recipients} hideRecordCount={true}/>
-                      </div>
-
-                   )}
+                {activeTabKey ==="2" && (
+                  <CampaignPreview segmentIds={recipients} />
+                )}
                </TabPane>
                )
               }
