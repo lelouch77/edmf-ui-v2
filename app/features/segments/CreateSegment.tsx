@@ -38,7 +38,7 @@ const types: any = {
 	]
 }
 
-const TypedDropdown = ({ options = [], value, handleChange, disabled = false, width = 120 }: { dataType: string } | any) => {
+const TypedDropdown = ({ options = [], value, handleChange, disabled = false, width = 170 }: { dataType: string } | any) => {
 	return (
 		<Select style={{ width }} value={value} onChange={handleChange} disabled={disabled}>
 			{ options.map((option: any) => <Option value={option.id}>{option.label}</Option>) }
