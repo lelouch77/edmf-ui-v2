@@ -22,6 +22,14 @@ const App = ({ children }: any) => {
     dispatch(fetchSettings())
   }, [])
 
+  // useEffect(() => {
+  //   console.log('outside if: ', settings)
+  //   if(settings && Object.keys(settings).length > 0 && page == 2){
+  //     console.log('inside if :', settings)
+  //     setPage(3)
+  //   }
+  // }, [settings])
+
   const handleSaveKeys = ({ accessTokenKey, accessTokenSecret, consumerKey, consumerSecret }: any) => {
     console.log({accessTokenKey, accessTokenSecret, consumerKey, consumerSecret})
     API.setKeys({
@@ -30,14 +38,10 @@ const App = ({ children }: any) => {
       consumer_key: consumerKey,
       consumer_secret: consumerSecret
     }).then((userObject: any) => {
-      if(!userObject.error){
-        setError('')
-        console.log(userObject)
-        setSettings(userObject)
-        setPage(3)
-      } else {
-        setError('Invalid API Keys')
-      }
+      window.location.reload()
+    })
+    .catch((err) => {
+      setError('Invalid API Keys')
     })
   }
 

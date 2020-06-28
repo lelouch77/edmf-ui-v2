@@ -49,13 +49,11 @@ const fetchSettings = (): AppThunk => async dispatch => {
 	try {
     dispatch(settings.actions.onStart())
     const userInfo = await API.getUserObject()
-    if (userInfo.error) {
-      dispatch(settings.actions.onSuccess({}))
-    } else {
-      dispatch(settings.actions.onSuccess(userInfo || {}))
-    }
+    console.log('user Info:- ', userInfo)
+    dispatch(settings.actions.onSuccess(userInfo || {}))
 	} catch (err) {
-		dispatch(settings.actions.onError(err.toString()))
+    if(err == 1) dispatch(settings.actions.onSuccess({}))
+		else dispatch(settings.actions.onError(err.toString()))
 	}
 }
 

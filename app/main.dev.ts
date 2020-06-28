@@ -121,7 +121,12 @@ app.on('activate', () => {
 });
 
 
-const easyDMCore = new EasyDMCore("app/jupiter.sqlite");
+// const easyDMCore = new EasyDMCore("/Users/akshay/Downloads/db.sqlite");
+
+const dbPath = process.env.NODE_ENV === 'development' 
+  ? 'app/jupiter.sqlite'
+  : path.join(process.resourcesPath, 'jupiterResources', 'jupiter.sqlite');
+const easyDMCore = new EasyDMCore(dbPath);
 
 
 const eventListenerGenerator = (path: string) => {
