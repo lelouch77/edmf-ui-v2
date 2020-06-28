@@ -18,9 +18,14 @@ export default (props: Props) => {
 
   const navOptions = [
     {
-      label: 'Campaigns',
+      label: 'Dashboard',
       icon: InboxOutlined,
       route: routes.HOME,
+    },
+    {
+      label: 'Campaigns',
+      icon: InboxOutlined,
+      route: routes.CAMPAIGNS,
     },
     {
       label: 'Segments',
