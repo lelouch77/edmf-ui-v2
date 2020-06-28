@@ -5,6 +5,7 @@ import routes from '../../constants/routes.json'
 import { Input, Select, Button, InputNumber } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import FollowersGrid from '../followers/FollowersGrid'
+import API from '../../api/easyDMAPI';
 
 const { Option } = Select;
 
@@ -139,12 +140,13 @@ const FilterRow = ({ index = 0, filter, deleteFilter, joinCondition, setJoinCond
 	)
 }
 
-export default () => {
+export default ({ createSegment }: any) => {
 	const [joinCondition, setJoinCondition] = useState(types.joinCondition[0].id)
 	const [filters, setFilters] = useState([])
 	const createFilterRow = () => setFilters([...filters, {}])
 	const updateFilter = (id, updatedFilter) => setFilters(filters.map((filter, idx) => idx == id ? updatedFilter : filter ))
 	const [transformedFilter, setTransformedFilter] = useState({})
+	const [segmentName, setSegmentName] = useState('')
 	
 	useEffect(() => {
 		// console.log(filters.filter((item: any) => item.id && item.operator && item.value))
@@ -158,19 +160,50 @@ export default () => {
 		})
 	}, [filters])
 
+	const handleSaveSegment = () => {
+		console.log('handleCreateSegment called', createSegment)
+		createSegment({	
+			name: segmentName,
+			description: '',
+			filters: transformedFilter
+		})
+	}
+
 	return (
 		<div className="w-full">
 			<Header name="Segments"/>
 			<main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
 				<div className="flex flex-row-reverse justify-between items-center mb-5">
 					<Link to={routes.SEGMENTS}>
-						<button className="bg-indigo-700 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded">
+						<button 
+							onClick={handleSaveSegment}
+							className={`${
+								!segmentName?
+									"bg-indigo-500 text-white opacity-50 cursor-not-allowed":
+									"bg-indigo-700 hover:bg-indigo-500 text-white " } font-bold py-2 px-4 rounded`}
+							disabled={!segmentName}
+						>
 							Save
 						</button>
 					</Link>
 					<p className="text-gray-500">Segment <b>></b> Create Segment </p>
 				</div>
 				<div>
+					<div className="max-w-lg mb-6 md:mb-0">
+						<label
+							className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+							htmlFor="name"
+						>
+							Name
+						</label>
+						<input
+							className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+							type="text"
+							placeholder="Name of the segmant"
+							value={segmentName}
+							onChange={(e: any) => setSegmentName(e.target.value)}
+						/>
+					</div>
 					<div className="">
 						<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Filters</div>
 						<div className="flex flex-col align-left p-5 border-solid border-2 border-gray-300">
