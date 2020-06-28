@@ -139,14 +139,14 @@ const FilterRow = ({ index = 0, filter, deleteFilter, joinCondition, setJoinCond
 	)
 }
 
-export default ({ createSegment }: any) => {
-	const [joinCondition, setJoinCondition] = useState(types.joinCondition[0].id)
-	const [filters, setFilters] = useState([])
+export default ({ createSegment, updateSegment, data }: any) => {
+	const [joinCondition, setJoinCondition] = useState(data ? data.filters.filterType : types.joinCondition[0].id)
+	const [filters, setFilters] = useState(data ? data.filters.conditions : [])
 	const createFilterRow = () => setFilters([...filters, {}])
 	const updateFilter = (id, updatedFilter) => setFilters(filters.map((filter, idx) => idx == id ? updatedFilter : filter ))
 	const [transformedFilter, setTransformedFilter] = useState({})
-	const [segmentName, setSegmentName] = useState('')
-	const [segmentDescription, setSegmentDescription] = useState('')
+	const [segmentName, setSegmentName] = useState(data ? data.name : '')
+	const [segmentDescription, setSegmentDescription] = useState(data ? data.description : '')
 	
 	useEffect(() => {
 		// console.log(filters.filter((item: any) => item.id && item.operator && item.value))
@@ -169,6 +169,17 @@ export default ({ createSegment }: any) => {
 		})
 	}
 
+	const handleUpdateSegment = () => {
+		updateSegment(
+			data.id,
+			{
+				name: segmentName,
+				description: segmentDescription,
+				filters: transformedFilter
+			}
+		)
+	}
+
 	return (
 		<div className="w-full">
 			<Header name="Segments"/>
@@ -184,18 +195,21 @@ export default ({ createSegment }: any) => {
 						</Link>
 						<Link to={routes.SEGMENTS}>
 							<button 
-								onClick={handleSaveSegment}
+								onClick={data ? handleUpdateSegment : handleSaveSegment}
 								className={`${
 									!segmentName?
 										"bg-indigo-500 text-white opacity-50 cursor-not-allowed":
 										"bg-indigo-700 hover:bg-indigo-500 text-white " } font-bold py-2 px-4 rounded`}
 								disabled={!segmentName}
 							>
-								Save
+								{ data ? 'Update' : 'Save' }
 							</button>
 						</Link>
 					</div>
-					<p className="text-gray-500">Segment <b>></b> Create Segment </p>
+					{ !data ?
+						<p className="text-gray-500">Segment <b>{">"}</b> Create Segment</p> :
+						<p className="text-gray-500">Segment <b>{">"}</b> Edit Segment <b>{">"}</b> { data.name } </p>
+					}
 				</div>
 				<div>
 					<div className="max-w-lg mb-6 md:mb-0">

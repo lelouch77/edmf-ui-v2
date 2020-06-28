@@ -1,13 +1,16 @@
 import React from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import routes from '../../constants/routes.json'
 import { Popconfirm } from "antd";
+import { useHistory } from 'react-router-dom'
 
-const ActionRenderer = ({ onEdit, onDelete, data }: any) => {
+const ActionRenderer = ({ onDelete, data }: any) => {
+  const history = useHistory();
   return (
     <div className="flex">
-      {/* <div className="-mt-1 mr-5 cursor-pointer" onClick={() => onEdit(data.id)}>
+      <div className="-mt-1 mr-5 cursor-pointer" onClick={() => history.push(`${routes.SEGMENTS}/${data.id}`)}>
         <EditOutlined style={{ fontSize: "16px", color: "#08c" }} />
-      </div> */}
+      </div>
       <Popconfirm
         title="Are you sure you want to delete this Segment?"
         onConfirm={() => onDelete(data.id)}
