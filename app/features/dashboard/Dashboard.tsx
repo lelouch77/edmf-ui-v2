@@ -16,8 +16,17 @@ const Dashboard = ({settings, messagesSent, campaigns}) => {
                             <div className="mr-4 border-r pr-10">
                                  <Statistic title="Messages Sent today" value={messagesSent} />
                             </div>
-                            <div className="">
+                            <div className="mr-4 border-r pr-10">
                                 <Statistic title="Active Campaigns" value={campaigns} />
+                            </div>
+                            <div className="mr-4 border-r pr-10">
+                                 <Statistic title="Followers" value={settings.followers_count} />
+                            </div>
+                            <div className="mr-4 border-r pr-10">
+                                 <Statistic title="Following" value={settings.friends_count} />
+                            </div>
+                            <div className="mr-4 border-r pr-10">
+                                 <Statistic title="Tweets" value={settings.statuses_count} />
                             </div>
                       </div>
                     </div>
