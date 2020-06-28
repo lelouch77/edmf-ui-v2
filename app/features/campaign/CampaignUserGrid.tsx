@@ -31,8 +31,9 @@ const CampaignUserStatusGrid = (props) => {
 				};
 			}
             ,flex:2
+            ,sortable:false
 		},
-		{ headerName: "Screen Name", field: "screen_name" ,flex:1},
+		{ headerName: "Screen Name", field: "screen_name" ,flex:1,sortable:false},
 		{ headerName: "Status", field: "status",valueFormatter : (params)=>{
             return params.value? statusMap[params.value] :"🕑 Scheduled"
          }

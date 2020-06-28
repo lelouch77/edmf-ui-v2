@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 
 function EditCampaignPage(props) {
   const {id} = useParams();
+  const activeTabKey = props.location.hash === "#status"?"3":"1"
   const history = useHistory();
   const [campaign,setCampaign] = useState(null);
 
@@ -40,7 +41,7 @@ function EditCampaignPage(props) {
 
   return  (
     <>
-     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM}/> }
+     {campaign && <CreateCampaign campaign={campaign} segments={allSegments} onSubmit={handleSubmit} onTestDM={handleTestDM} activeTab={activeTabKey} /> }
     </>
   );
 }
