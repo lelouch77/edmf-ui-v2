@@ -25,7 +25,7 @@ const TypedDropdown = ({ options = [], value, handleChange, disabled = false, wi
 	)
 }
 
-const FilterRow = ({ index = 0, filter, deleteFilter, updateFilter }: any) => {
+const FilterRow = ({ index = 0, filter, deleteFilter, updateFilter, columns, markColumnChange }: any) => {
 	
 	const getOperatorType = (column: string) => (types.columns.find((item: any) => item.id == column) || {}).type
 
@@ -36,7 +36,9 @@ const FilterRow = ({ index = 0, filter, deleteFilter, updateFilter }: any) => {
 	useEffect(() => {
 		if(column){
 			setOperatorType(getOperatorType(column))
+			markColumnChange(column, true)
 		}
+		return () => markColumnChange(column, false)
 	}, [column])
 
 	useEffect(() => {
@@ -55,7 +57,7 @@ const FilterRow = ({ index = 0, filter, deleteFilter, updateFilter }: any) => {
 			{/* Select Column */}
 			<div className="ml-2">
 				<TypedDropdown
-					options={types.columns}
+					options={columns}
 					value={column}
 					handleChange={(value: string) => handleUpdateFilter({ id: value })}
 				/>
@@ -81,11 +83,13 @@ const CampaignPreview = ({ segmentIds }: any) => {
 	const createFilterRow = () => setFilters([...filters, {}])
 	const updateFilter = (id, updatedFilter) => setFilters(filters.map((filter, idx) => idx == id ? updatedFilter : filter ))
 	const [transformedFilter, setTransformedFilter] = useState([])
-
+	const [columns, setColumns] = useState(types.columns)
+	
 	useEffect(() => {
 		setTransformedFilter(
-			filters.filter((item: any) => item.id && item.operator && item.value)
+			filters.filter((item: any) => item.id && item.operator)
 		)
+		
 	}, [filters])
 
 	useEffect(() => {
@@ -93,11 +97,20 @@ const CampaignPreview = ({ segmentIds }: any) => {
 		//Insert your filter usage code here
 	}, [transformedFilter])
 
+	const markColumnChange = (id: string, value: boolean) => {
+		if(id){
+			setColumns(columns.map((column: any) => {
+				if(column.id == id) return { ...column, added: value }
+				return column
+			}))
+		}
+	}
+
 	return (
 		<div>
 			<div>
 				<div className="">
-					<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Filters</div>
+					<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Sort</div>
 					<div className="flex flex-col align-left p-5 border-solid border-2 border-gray-300">
 						{ filters.map((filter, index) => 
 							<FilterRow
@@ -106,16 +119,20 @@ const CampaignPreview = ({ segmentIds }: any) => {
 								key={index}
 								updateFilter={(updatedFilter: any) => updateFilter(index, updatedFilter)}
 								deleteFilter = {() => setFilters(filters.filter((item, idx) => idx != index))}
+								columns={columns.filter(column => !column.added)}
+								markColumnChange={markColumnChange}
 							/>
 						)}
-						<div onClick={createFilterRow} className="color-indigo-700 hover:underline cursor-pointer">
-							+ Add Sort Option
-						</div>
+						{	columns.filter(column => !column.added).length > 0 &&
+							<div onClick={createFilterRow} className="color-indigo-700 hover:underline cursor-pointer">
+								+ Add Sort Option
+							</div>
+						}
 					</div>
 				</div>
 			</div>
 			<div className="ag-theme-alpine mt-2" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
-				<FollowersGrid segmentIds={segmentIds} hideRecordCount={true}/>
+				<FollowersGrid segmentIds={segmentIds} hideRecordCount={true}  />
 			</div>
 		</div>
 	)
