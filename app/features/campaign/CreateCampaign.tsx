@@ -43,6 +43,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   const [isTestDMModalVisible,setTestDMModalVisible ] = useState(false);
   const [testDMScreenNames,setTestDMScreenNames ] = useState("");
   const [sendToAllFollowers,setSendToAllFollowers] = useState(false);
+  const [rankBy,setRankBy] = useState([]);
 
   function handleRecipientChange(segmentIds) {
     setRecipients(segmentIds);
@@ -65,6 +66,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
       segmentIds: recipients,
       scheduled_time: scheduledTimeStamp,
       allocated_msg_count: messagesPerDay,
+      order:rankBy
     });
   }
 
@@ -100,6 +102,13 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   function isValidCampaign(){
     //Check if the name,description and message are provided
     return message.length > 0 && name.length > 0 && (sendToAllFollowers || recipients.length >0);
+  }
+
+  function onRankBySelection(transformedFilter){
+    const transformedSortCondition = [transformedFilter.map((sortBy)=>{
+						return sortBy && [sortBy.id,sortBy.operator.toUpperCase()]
+			})];
+    setRankBy(transformedSortCondition);
   }
 
   return (
@@ -313,8 +322,8 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                  <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
                  {activeTabKey ==="3" && campaign.id && (
                    <>
-                     <div class="flex flex-row-reverse">
-                        <div class="w-1/4 text-right">
+                     <div className="flex flex-row-reverse">
+                        <div className="w-1/4 text-right">
                           <Statistic value={93} suffix="/ 100 sent" />
                         </div>
                      </div> 
@@ -324,9 +333,9 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                  }
                 </div>
               </TabPane>):(
-              <TabPane tab="Review" disabled={false} key="2">
+              <TabPane tab="Review" disabled={!isValidCampaign()} key="2">
                 {activeTabKey ==="2" && (
-                  <CampaignPreview segmentIds={recipients} />
+                  <CampaignPreview segmentIds={recipients} onRankBySelection={onRankBySelection} />
                 )}
                </TabPane>
                )

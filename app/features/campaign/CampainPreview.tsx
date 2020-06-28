@@ -78,7 +78,7 @@ const FilterRow = ({ index = 0, filter, deleteFilter, updateFilter, columns, mar
 }
 
 
-const CampaignPreview = ({ segmentIds }: any) => {
+const CampaignPreview = ({ segmentIds ,onRankBySelection}: any) => {
 	const [filters, setFilters] = useState([])
 	const createFilterRow = () => setFilters([...filters, {}])
 	const updateFilter = (id, updatedFilter) => setFilters(filters.map((filter, idx) => idx == id ? updatedFilter : filter ))
@@ -93,8 +93,7 @@ const CampaignPreview = ({ segmentIds }: any) => {
 	}, [filters])
 
 	useEffect(() => {
-		console.log(transformedFilter)
-		//Insert your filter usage code here
+		onRankBySelection(transformedFilter);
 	}, [transformedFilter])
 
 	const markColumnChange = (id: string, value: boolean) => {
@@ -110,7 +109,7 @@ const CampaignPreview = ({ segmentIds }: any) => {
 		<div>
 			<div>
 				<div className="">
-					<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Sort</div>
+					<div className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Rank By</div>
 					<div className="flex flex-col align-left p-5 border-solid border-2 border-gray-300">
 						{ filters.map((filter, index) => 
 							<FilterRow
