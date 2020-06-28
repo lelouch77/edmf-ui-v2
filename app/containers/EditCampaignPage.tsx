@@ -3,7 +3,6 @@ import CreateCampaign from '../features/campaign/CreateCampaign';
 import API from '../api/easyDMAPI'
 import { useHistory } from "react-router-dom";
 import routes from '../constants/routes.json';
-import {notification } from 'antd';
 import openNotification from '../components/common/Notification';
 import { useParams } from "react-router";
 
@@ -19,11 +18,9 @@ function EditCampaignPage(props) {
   
   useEffect(()=>{
     API.getCampaign(id).then((campaign)=>{
-        campaign.segmentIds = campaign.metadata.segments.map((segment)=>segment.id);
+        campaign.segmentIds = campaign.metadata.segments ? campaign.metadata.segments.map((segment)=>segment.id) : [];
         setCampaign(campaign);
-    });
-    API.getSegments().then((segments)=>{
-      setAllSegments(segments);
+        setAllSegments(campaign.metadata.segments  || []);
     });
   },[]);
 

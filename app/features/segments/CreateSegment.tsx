@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../../containers/Header';
+import { debounce } from 'lodash';
 import { Link } from 'react-router-dom';
 import routes from '../../constants/routes.json'
 import { Input, Select, Button, InputNumber } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import FollowersGrid from '../followers/FollowersGrid'
-
+import FollowersGrid from '../followers/FollowersGrid';
 const { Option } = Select;
 
 const types: any = {
@@ -148,15 +148,18 @@ export default () => {
 	
 	useEffect(() => {
 		// console.log(filters.filter((item: any) => item.id && item.operator && item.value))
-		console.log({
+		const newFilter = {
 			filterType: joinCondition,
 			conditions: filters.filter((item: any) => item.id && item.operator && item.value)
-		})
-		setTransformedFilter({
-			filterType: joinCondition,
-			conditions: filters.filter((item: any) => item.id && item.operator && item.value)
-		})
+		}
+		if(JSON.stringify(newFilter) !== JSON.stringify(transformedFilter)){
+			setTransformedFilter(newFilter);
+		}
 	}, [filters])
+
+	useEffect(() => {
+		console.log("transformedFilter",transformedFilter);
+	},[transformedFilter])
 
 	return (
 		<div className="w-full">
@@ -191,7 +194,7 @@ export default () => {
 						</div>
 					</div>
 				</div>
-				<div className="ag-theme-alpine" style={{ height: 'calc(100vh - 100px)', width: '100%' }}>
+				<div className="ag-theme-alpine" style={{ height: 'calc(100vh - 500px)', width: '100%' }}>
 					<FollowersGrid where={transformedFilter} />
 				</div>
 			</main>

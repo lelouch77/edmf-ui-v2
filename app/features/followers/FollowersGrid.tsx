@@ -10,15 +10,16 @@ import API from '../../api/easyDMAPI'
 const FollowersGrid = (props) => {
         const [gridAPI,setGridAPI] = useState(null);
         const [tableCount,setTableCount] = useState(0);
-				const [where, setWhere] = useState(props.where)
-			
-        useEffect(()=>{
-           gridAPI && gridAPI.purgeInfiniteCache();
-				},[props.segmentIds, where]);
 				
-				useEffect(() => {
-					setWhere(props.where)
-				}, [props.where])
+		useEffect(() => {
+            gridAPI && (gridAPI.dataFilters = props.where);
+            gridAPI && gridAPI.purgeInfiniteCache();
+        }, [props.where])
+
+        useEffect(() => {
+            gridAPI && (gridAPI.dataOrder = props.order);
+            gridAPI && gridAPI.purgeInfiniteCache();
+		}, [props.order])
 
 		const columnDefs = [
 		{ 
@@ -38,7 +39,7 @@ const FollowersGrid = (props) => {
 		{ headerName: "Verified", field: "verified" ,cellRenderer: 'verifiedRenderer',flex:1}
 	]
 
-	const defaultColDef = { sortable: true }
+	const defaultColDef = { sortable: !props.disableSort }
 
 	const components = {
 		nameRenderer: NameRenderer,
@@ -58,21 +59,27 @@ const FollowersGrid = (props) => {
     
 	const onGridReady = params => {
         setGridAPI(params.api);
+        const agGridAPI = params.api;
 		var dataSource = {
 			rowCount: null,
 				getRows: function(params) {
+                    console.log("Loading data ...");
 					//console.log('asking for ' + params.startRow + ' to ' + params.endRow);
 					let sortParams = params.sortModel.length > 0  ? [params.sortModel.map((sortBy)=>{
-						return [sortBy.colId,sortBy.sort.toUpperCase()]
+                        return [sortBy.colId,sortBy.sort.toUpperCase()]
 					})]:undefined;
-
+                    
 					let query = {offset:params.startRow,limit:100,order:sortParams};
 					if(props.segmentIds && props.segmentIds.length>0){
-						query.segmentIds = props.segmentIds;
-					}
-					if(where){
-						query.where = where
-					}
+                        query.segmentIds = props.segmentIds;
+                    }
+					if(agGridAPI.dataFilters){
+                        query.where = agGridAPI.dataFilters;
+                    }
+                    if(agGridAPI.dataOrder){
+                        query.order = agGridAPI.dataOrder;
+                    }
+                    console.log(query);
 					API.getPaginatedFollowers(query).then((res)=>{
                         //TBD Update the table count from the Query
                         setTableCount(res.count);

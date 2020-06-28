@@ -105,11 +105,8 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   }
 
   function onRankBySelection(transformedFilter){
-    const transformedSortCondition = [transformedFilter.map((sortBy)=>{
-						return sortBy && [sortBy.id,sortBy.operator.toUpperCase()]
-			})];
-    if(transformedSortCondition.length>0){
-      setRankBy(transformedSortCondition);
+    if(transformedFilter.length>0){
+      setRankBy(transformedFilter);
     }
   }
 
