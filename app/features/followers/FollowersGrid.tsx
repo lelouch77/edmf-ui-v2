@@ -73,11 +73,11 @@ const FollowersGrid = (props) => {
 					if(props.segmentIds && props.segmentIds.length>0){
                         query.segmentIds = props.segmentIds;
                     }
-					if(agGridAPI.dataFilters){
-                        query.where = agGridAPI.dataFilters;
+					if(agGridAPI.dataFilters || props.where){
+                        query.where = agGridAPI.dataFilters || props.where;
                     }
-                    if(agGridAPI.dataOrder){
-                        query.order = agGridAPI.dataOrder;
+                    if(agGridAPI.dataOrder || props.order){
+                        query.order = agGridAPI.dataOrder || props.order;
                     }
                     console.log(query);
 					API.getPaginatedFollowers(query).then((res)=>{

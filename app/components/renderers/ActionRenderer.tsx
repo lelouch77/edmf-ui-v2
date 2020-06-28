@@ -27,7 +27,7 @@ export default function ActionRenderer(props: Props) {
           cancelText="No"
         >
           <div className="-mt-1">
-            <PauseCircleOutlined style={{ fontSize: "16px", color: "#08c" }} />
+            <PauseCircleOutlined style={{ fontSize: "16px", color: "#08c", cursor : "pointer" }} />
           </div>
         </Popconfirm>
         :
@@ -38,7 +38,7 @@ export default function ActionRenderer(props: Props) {
           cancelText="No"
         >
           <div className="-mt-1">
-            <PlayCircleOutlined style={{ fontSize: "16px", color: "#08c" }} />
+            <PlayCircleOutlined style={{ fontSize: "16px", color: "#08c" , cursor : "pointer"}} />
           </div>
         </Popconfirm>
 
@@ -53,7 +53,7 @@ export default function ActionRenderer(props: Props) {
           cancelText="No"
         >
           <div className="-mt-1">
-            <DeleteOutlined style={{ fontSize: "16px", color: "#08c" }} />
+            <DeleteOutlined style={{ fontSize: "16px", color: "#08c", cursor : "pointer" }} />
           </div>
         </Popconfirm>
       </div>
