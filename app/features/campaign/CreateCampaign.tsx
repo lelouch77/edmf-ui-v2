@@ -14,7 +14,8 @@ import {
   Tabs,
   Modal,
   Progress,
-  Statistic
+  Statistic,
+  Checkbox
 } from "antd";
 import moment from "moment";
 import { CheckOutlined ,TwitterOutlined} from '@ant-design/icons';
@@ -41,6 +42,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   const [activeTabKey, setActiveTabKey] = useState(activeTab);
   const [isTestDMModalVisible,setTestDMModalVisible ] = useState(false);
   const [testDMScreenNames,setTestDMScreenNames ] = useState("");
+  const [sendToAllFollowers,setSendToAllFollowers] = useState(false);
 
   function handleRecipientChange(segmentIds) {
     setRecipients(segmentIds);
@@ -96,7 +98,8 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
   };
 
   function isValidCampaign(){
-    return message.length > 0 && name.length > 0;
+    //Check if the name,description and message are provided
+    return message.length > 0 && name.length > 0 && (sendToAllFollowers || recipients.length >0);
   }
 
   return (
@@ -217,6 +220,9 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                         >
                           Recipients
                         </label>
+                        <div class="py-2">
+                        <Checkbox disabled = {campaign.id} onChange={(e: any) => {setSendToAllFollowers(e.target.checked);setRecipients([]);}}>Send to all followers</Checkbox>
+                        </div>
                         <Select
                           mode="multiple"
                           style={{ width: "100%" }}
@@ -224,7 +230,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                           onChange={handleRecipientChange}
                           optionLabelProp="label"
                           defaultValue= {recipients}
-                          disabled = {campaign.id}
+                          disabled = {campaign.id || sendToAllFollowers}
                         >
                           {segments.map((segment) => (
                             <Option
