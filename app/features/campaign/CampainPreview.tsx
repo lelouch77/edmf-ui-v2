@@ -122,7 +122,7 @@ const CampaignPreview = ({ segmentIds ,onRankBySelection}: any) => {
 								markColumnChange={markColumnChange}
 							/>
 						)}
-						{	columns.filter(column => !column.added).length > 0 &&
+						{	filters.length < types.columns.length &&
 							<div onClick={createFilterRow} className="color-indigo-700 hover:underline cursor-pointer">
 								+ Add Sort Option
 							</div>
