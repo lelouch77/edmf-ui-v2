@@ -32,7 +32,7 @@
 - [Background](#-background)
 - [Architecture](#-architecture)
 - [Features](#-features)
-- [Usage](#-usage)
+- [Usage](#%EF%B8%8F-usage)
 - [License](#-license)
 
 ## 🎉 Introduction
@@ -53,25 +53,21 @@ A decoupled architecture where we have an adapter for a given social media platf
 
 Jupiter GUI comes packed with the following features:
 
-- [x] Fetch **Followers** from Twitter (75000 followers/15 minutes)
-- [x] Create **Segments**(lists) of followers based on filter criteria (Filter followers with >= 5000 followers or >= 200 tweets)
-- [x] **Segments** can have multiple `AND` or `OR` based filters
-- [x] Create (Mass DM) **Campaigns** on selected segments with ranking by followers count, friends count, tweets and retweets.
-- [x] Set weights (Number of messages to be sent in a day) for each Campaign
-- [x] Schedule your Campaign to send MassDMs at a specific time everyday
-- [x] Pause and Resume Campaigns
-- [x] Send test DMs to upto 5 users from the Campaign settings before the Campaign kicks off
-- [x] Track statistics like number of DMs sent from the app Dashboard
+- Fetch **Followers** from Twitter (75000 followers/15 minutes)
+- Create **Segments**(lists) of followers based on filter criteria (Filter followers with >= 5000 followers or >= 200 tweets)
+- **Segments** can have multiple `AND` or `OR` based filters
+- Create (Mass DM) **Campaigns** on selected segments with ranking by followers count, friends count, tweets and retweets.
+- Set weights (Number of messages to be sent in a day) for each Campaign
+- Schedule your Campaign to send MassDMs at a specific time everyday
+- Pause and Resume Campaigns
+- Send test DMs to upto 5 users from the Campaign settings before the Campaign kicks off
+- Track statistics like number of DMs sent from the app Dashboard
 
 ## ⚙️ Usage
 
 ##### Requirements
 
 Twitter API keys with access permission set to 'Read, write and Direct Messages'. You can register for a twitter developer account [here](https://developer.twitter.com/)
-
-##### Running the App
-
-The runtime Electron app for both Windows and MacOS can be found in the `dist` folder. Download the files and run them like any normal desktop application. No setup needed.
 
 ##### Dev Setup
 
