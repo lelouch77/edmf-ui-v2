@@ -220,9 +220,6 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                         >
                           Recipients
                         </label>
-                        <div class="py-2">
-                        <Checkbox disabled = {campaign.id} onChange={(e: any) => {setSendToAllFollowers(e.target.checked);setRecipients([]);}}>Send to all followers</Checkbox>
-                        </div>
                         <Select
                           mode="multiple"
                           style={{ width: "100%" }}
@@ -244,6 +241,10 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                             </Option>
                           ))}
                         </Select>
+                        <p className="py-1 mt-1">OR</p>
+                        <div>
+                        <Checkbox disabled = {campaign.id} onChange={(e: any) => {setSendToAllFollowers(e.target.checked);setRecipients([]);}}>Send to all followers</Checkbox>
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-2 mt-8">
