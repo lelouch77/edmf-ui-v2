@@ -26,6 +26,10 @@
   </a>
 </p>
 
+## Download
+
+- [Mac Application](/releases/Jupiter-alpha-v1.dmg)
+
 ## Contents
 
 - [Introduction](#-introduction)
