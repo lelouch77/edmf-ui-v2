@@ -4,6 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 import { Link } from 'react-router-dom'
 import CampainActionRenderert from '../../components/renderers/CampainActionRenderer'
 import routes from '../../constants/routes.json'
+import moment from 'moment'
 
 const defaultColDef = {  sortable: true }
 
@@ -12,8 +13,13 @@ export default ({ segments, createSegment, deleteSegment }: any) => {
 	const columnDefs = [
 		{ headerName: "Name", field: "name",cellRenderer: 'nameRenderer',  flex:2 },
 		{ headerName: "Description", field: "description" , flex:1},
-		{ headerName: "Created At", field: "createdAt" ,flex:1},
-		{ headerName: "Last Modified", field: "updatedAt", flex:1 },
+		{ headerName: "Users", field: "count" , flex:1},
+		{ headerName: "Created At", field: "createdAt" ,flex:1, valueFormatter : (params)=>{
+			return moment(params.value).format('MM/DD/YYYY HH:mm A') || '--'
+			}},
+		{ headerName: "Last Modified", field: "updatedAt", flex:1, valueFormatter : (params)=>{
+			return moment(params.value).format('MM/DD/YYYY HH:mm A') || '--'
+			} },
 		{ 
 			headerName: "Action",cellRenderer: 'actionRenderer',
 			cellRendererParams: { 

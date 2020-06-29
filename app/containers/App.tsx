@@ -5,7 +5,7 @@ import { fetchSettings } from '../features/settings/SettingsSlice'
 import { setSettings } from '../features/settings/SettingsSlice'
 import { APIKeysModal, WelcomeScreen, ProfileScreenModal } from '../features/IntroModals'
 import Navbar from './Navbar';
-import API from '../api/easyDMAPI'
+import API, { api } from '../api/easyDMAPI'
 import { Alert } from 'antd'
 import { useHistory } from "react-router-dom";
 import routes from 'constants/routes.json';
@@ -20,7 +20,18 @@ const App = ({ children }: any) => {
 	
 	useEffect(() => {
     dispatch(fetchSettings())
+    api('respath')
+      .then((respath) =>console.log('respath success: ', respath))
+      .catch((respath) =>console.log('respath error: ', respath))
   }, [])
+
+  // useEffect(() => {
+  //   console.log('outside if: ', settings)
+  //   if(settings && Object.keys(settings).length > 0 && page == 2){
+  //     console.log('inside if :', settings)
+  //     setPage(3)
+  //   }
+  // }, [settings])
 
   const handleSaveKeys = ({ accessTokenKey, accessTokenSecret, consumerKey, consumerSecret }: any) => {
     console.log({accessTokenKey, accessTokenSecret, consumerKey, consumerSecret})
@@ -30,14 +41,10 @@ const App = ({ children }: any) => {
       consumer_key: consumerKey,
       consumer_secret: consumerSecret
     }).then((userObject: any) => {
-      if(!userObject.error){
-        setError('')
-        console.log(userObject)
-        setSettings(userObject)
-        setPage(3)
-      } else {
-        setError('Invalid API Keys')
-      }
+      window.location.reload()
+    })
+    .catch((err) => {
+      setError('Invalid API Keys')
     })
   }
 
@@ -49,8 +56,12 @@ const App = ({ children }: any) => {
   
   return (
     <div className="bg-white h-full flex">
-      <Navbar/>
-      { children }
+      { (settings && Object.keys(settings).length > 0 ) && 
+        <>
+          <Navbar/>
+          { children }
+        </>
+      }
       { (!settings._defaultSlice && (!settings || (Object.keys(settings).length == 0))) &&
         <Modal key="Main Modal" visible title="Jupiter Setup" footer={false} closable={false}>
           { error && <Alert className='mb-5' message={error} type="error" showIcon /> }

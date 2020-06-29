@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
+  "name": "jupiter",
   "productName": "Jupiter",
-  "version": "1.2.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "version": "1.0.0-alpha",
+  "description": "Jupiter GUI (EasyDMFollowers-UI) is an electron application built for both Windows and MacOS. This application primarily fetches a list of your followers and provides features to send Mass DMs to them.",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
@@ -95,6 +95,15 @@
       "buildResources": "resources",
       "output": "release"
     },
+    "extraResources": [
+      {
+        "from": "./jupiterResources/jupiter.sqlite",
+        "to": "jupiterResources/jupiter.sqlite",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
     "publish": {
       "provider": "github",
       "owner": "electron-react-boilerplate",

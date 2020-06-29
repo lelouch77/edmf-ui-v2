@@ -5,6 +5,7 @@ const api = (path: string, params: Array<any> = []) => {
   ipcRenderer.send(path, ...params)
    return new Promise((resolve, reject) => {
       ipcRenderer.once(path, (e, data) => {
+          console.log(path, data)
           if(data.error){
             reject(data.error);
           }else{
@@ -23,3 +24,4 @@ PUBLIC_METHODS.default.forEach((functionName: string) => {
 })
 
 export default exportFunctions;
+export { api }

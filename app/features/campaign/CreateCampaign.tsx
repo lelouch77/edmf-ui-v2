@@ -322,7 +322,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                    <>
                      <div className="flex flex-row-reverse">
                         <div className="w-1/4 text-right">
-                          <Statistic value={campaignStatus && campaignStatus.UNSENT} suffix={`/ ${campaignStatus && campaignStatus.TOTAL} sent`} />
+                          <Statistic value={campaignStatus && campaignStatus.SENT} suffix={`/ ${campaignStatus && campaignStatus.TOTAL} sent`} />
                         </div>
                      </div> 
                        <CampaignUserGrid campaignId={campaign.id}/>

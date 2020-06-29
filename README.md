@@ -26,6 +26,10 @@
   </a>
 </p>
 
+## Download
+
+- [Mac Application](https://drive.google.com/file/d/1lEQg12xpRwQRsDwlOYMKjLI-ebjYKSvb/view?usp=sharing)
+
 ## Contents
 
 - [Introduction](#-introduction)
