@@ -5,7 +5,7 @@ import { fetchSettings } from '../features/settings/SettingsSlice'
 import { setSettings } from '../features/settings/SettingsSlice'
 import { APIKeysModal, WelcomeScreen, ProfileScreenModal } from '../features/IntroModals'
 import Navbar from './Navbar';
-import API from '../api/easyDMAPI'
+import API, { api } from '../api/easyDMAPI'
 import { Alert } from 'antd'
 import { useHistory } from "react-router-dom";
 import routes from 'constants/routes.json';
@@ -20,6 +20,9 @@ const App = ({ children }: any) => {
 	
 	useEffect(() => {
     dispatch(fetchSettings())
+    api('respath')
+      .then((respath) =>console.log('respath success: ', respath))
+      .catch((respath) =>console.log('respath error: ', respath))
   }, [])
 
   // useEffect(() => {

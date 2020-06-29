@@ -9,12 +9,25 @@
  * `./app/main.prod.js` using webpack. This gives us some performance wins.
  */
 import path from 'path';
+import fs from 'fs'
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import EasyDMCore from 'edmf-core';
 import PUBLIC_METHODS from 'edmf-core/dist/export.details';
+
+const resourceDbPath = path.join(process.resourcesPath, 'jupiterResources', 'jupiter.sqlite');
+const prodPath = path.join(app.getPath('userData'), 'jupiter1.sqlite')
+
+if(process.env.NODE_ENV != 'development') {
+  if(!fs.existsSync(prodPath)) {
+    const dbContents = fs.readFileSync(resourceDbPath)
+    fs.writeFileSync(prodPath, dbContents)
+  }
+}
+
+console.log('prod path : ', prodPath)
 
 export default class AppUpdater {
   constructor() {
@@ -125,7 +138,7 @@ app.on('activate', () => {
 
 const dbPath = process.env.NODE_ENV === 'development' 
   ? 'app/jupiter.sqlite'
-  : path.join(process.resourcesPath, 'jupiterResources', 'jupiter.sqlite');
+  : prodPath;
 const easyDMCore = new EasyDMCore(dbPath);
 
 
@@ -140,6 +153,16 @@ const eventListenerGenerator = (path: string) => {
       })
   })
 }
+
+
+const getBasePath = () => process.env.NODE_ENV === 'development' 
+? 'app/jupiter.sqlite'
+: path.join(process.resourcesPath, 'jupiterResources', 'jupiter.sqlite');
+
+ipcMain.on('respath', (e) => {
+  (mainWindow as any).webContents.send('respath', getBasePath());
+})
+
 
 PUBLIC_METHODS.forEach(path => {
   eventListenerGenerator(path)
