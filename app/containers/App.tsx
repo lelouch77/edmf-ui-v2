@@ -53,8 +53,12 @@ const App = ({ children }: any) => {
   
   return (
     <div className="bg-white h-full flex">
-      <Navbar/>
-      { children }
+      { (settings && Object.keys(settings).length > 0 ) && 
+        <>
+          <Navbar/>
+          { children }
+        </>
+      }
       { (!settings._defaultSlice && (!settings || (Object.keys(settings).length == 0))) &&
         <Modal key="Main Modal" visible title="Jupiter Setup" footer={false} closable={false}>
           { error && <Alert className='mb-5' message={error} type="error" showIcon /> }
