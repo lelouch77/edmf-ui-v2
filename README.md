@@ -28,7 +28,7 @@
 
 ## Download
 
-- [Mac Application](/releases/Jupiter-alpha-v1.dmg)
+- [Mac Application](https://drive.google.com/file/d/1lEQg12xpRwQRsDwlOYMKjLI-ebjYKSvb/view?usp=sharing)
 
 ## Contents
 
