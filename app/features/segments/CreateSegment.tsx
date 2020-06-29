@@ -224,7 +224,7 @@ export default ({ createSegment, updateSegment, data }: any) => {
 						<input
 							className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
 							type="text"
-							placeholder="Name of the segmant"
+							placeholder="Name of the segment"
 							value={segmentName}
 							onChange={(e: any) => setSegmentName(e.target.value)}
 						/>
@@ -239,7 +239,7 @@ export default ({ createSegment, updateSegment, data }: any) => {
 						<input
 							className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
 							type="text"
-							placeholder="Name of the segmant"
+							placeholder="Description"
 							value={segmentDescription}
 							onChange={(e: any) => setSegmentDescription(e.target.value)}
 						/>
