@@ -89,8 +89,8 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
 
   function handleOk() {
      onTestDM({
-      recipient:testDMScreenNames,
-      message
+      recipients:testDMScreenNames,
+      text:message
     });
      setTestDMModalVisible(false);
   };
@@ -138,7 +138,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="flex justify-between">
             <p className="text-gray-500">
-               {campaign.id?"Edit Campaign":"Create Campaign"} <b>></b> {name}{" "} 
+               {campaign.id?"Edit Campaign":"Create Campaign"} <b>></b> {name}{" "}
             </p>
             <div className="flex flex-row-reverse">
                 <button
@@ -315,7 +315,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                 </div>
               </TabPane>
               {
-                campaign.id ? 
+                campaign.id ?
                 (<TabPane tab="Status" key="3">
                  <div className="ag-theme-alpine" style={{ height: 'calc(100vh - 17rem)', width: '100%' }}>
                  {activeTabKey ==="3" && campaign.id && (
@@ -324,7 +324,7 @@ export default function CreateCampaign({ campaign, segments, onSubmit,onTestDM,a
                         <div className="w-1/4 text-right">
                           <Statistic value={campaignStatus && campaignStatus.SENT} suffix={`/ ${campaignStatus && campaignStatus.TOTAL} sent`} />
                         </div>
-                     </div> 
+                     </div>
                        <CampaignUserGrid campaignId={campaign.id}/>
                    </>
                  )
