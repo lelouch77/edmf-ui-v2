@@ -15,6 +15,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "edmf-core": "^1.1.32"
+    "edmf-core": "^1.1.33"
   }
 }

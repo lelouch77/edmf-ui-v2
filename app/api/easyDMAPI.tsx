@@ -1,5 +1,6 @@
 const { ipcRenderer } = require('electron');
 const PUBLIC_METHODS = require('edmf-core/dist/export.details');
+const Notification = require('node-mac-notifier');
 
 const api = (path: string, params: Array<any> = []) => {
   ipcRenderer.send(path, ...params)
@@ -15,7 +16,9 @@ const api = (path: string, params: Array<any> = []) => {
    });
 }
 
-
+ipcRenderer.on('notify', (event, { title, body }) => {
+  new Notification(title, { body });
+});
 
 const exportFunctions: any = {}
 //console.log(PUBLIC_METHODS);

@@ -136,10 +136,15 @@ app.on('activate', () => {
 
 // const easyDMCore = new EasyDMCore("/Users/akshay/Downloads/db.sqlite");
 
-const dbPath = process.env.NODE_ENV === 'development' 
+const dbPath = process.env.NODE_ENV === 'development'
   ? 'app/jupiter.sqlite'
   : prodPath;
-const easyDMCore = new EasyDMCore(dbPath);
+
+const notifier = (message) => {
+  (mainWindow as any).webContents.send('notify', message);
+}
+
+const easyDMCore = new EasyDMCore(dbPath, process.platform === 'darwin' ? notifier : () => {});
 
 
 const eventListenerGenerator = (path: string) => {
@@ -154,13 +159,8 @@ const eventListenerGenerator = (path: string) => {
   })
 }
 
-
-const getBasePath = () => process.env.NODE_ENV === 'development' 
-? 'app/jupiter.sqlite'
-: path.join(process.resourcesPath, 'jupiterResources', 'jupiter.sqlite');
-
 ipcMain.on('respath', (e) => {
-  (mainWindow as any).webContents.send('respath', getBasePath());
+  (mainWindow as any).webContents.send('respath', dbPath);
 })
 
 
